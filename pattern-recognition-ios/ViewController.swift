@@ -14,6 +14,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     var newMedia: Bool?
     
     @IBAction func useCamera(_ sender: Any) {
+        // All this code is called when the camera is used, as you would hope.
         if UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.camera) {
             let imagePicker = UIImagePickerController()
             imagePicker.delegate = self
@@ -36,9 +37,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         // Dispose of any resources that can be recreated.
     }
     
-    func imagePickerController(picker: UIImagePickerController,
-                               didFinishPickingMediaWithInfo info: [String : AnyObject]) {
-        
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
         let mediaType = info[UIImagePickerControllerMediaType] as! NSString
         self.dismiss(animated: true, completion: nil)
         
@@ -49,33 +48,28 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
             if (newMedia == true) {
                 UIImageWriteToSavedPhotosAlbum(image,
                                                self,
-                                               Selector(("image:didFinishSavingWithError:contextInfo:")), nil)
+                                               #selector(image(_:didFinishSavingWithError:contextInfo:)),
+                                               nil)
             } else if mediaType.isEqual(to: kUTTypeMovie as String) {
                 // Code to support video here - not for this project!
             }
         }
     }
     
-    func image(image: UIImage,
-               didFinishSavingWithError error: NSErrorPointer,
-               contextInfo:UnsafeRawPointer) {
-        if error != nil {
-            let alert = UIAlertController(title: "Save Failed",
-                                          message: "Failed to save image",
-                                          preferredStyle: UIAlertControllerStyle.alert)
-            
-            let cancelAction = UIAlertAction(title: "OK",
-                                             style: .cancel, handler: nil)
-            
-            alert.addAction(cancelAction)
-            self.present(alert, animated: true,
-                                       completion: nil)
+    @objc func image(_ image: UIImage, didFinishSavingWithError error: Error?, contextInfo: UnsafeRawPointer) {
+        if error == nil {
+            let ac = UIAlertController(title: "Saved!", message: "Image saved to your photos.", preferredStyle: .alert)
+            ac.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+            present(ac, animated: true, completion: nil)
+        } else {
+            let ac = UIAlertController(title: "Save error", message: error?.localizedDescription, preferredStyle: .alert)
+            ac.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+            present(ac, animated: true, completion: nil)
         }
     }
     
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
         self.dismiss(animated: true, completion: nil)
-    }
-
+    }   
 }
 
