@@ -1,0 +1,445 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 48;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		43D3E4AC1FB68C6C00DFF891 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43D3E4AB1FB68C6C00DFF891 /* AppDelegate.swift */; };
+		43D3E4AE1FB68C6C00DFF891 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43D3E4AD1FB68C6C00DFF891 /* ViewController.swift */; };
+		43D3E4B11FB68C6C00DFF891 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 43D3E4AF1FB68C6C00DFF891 /* Main.storyboard */; };
+		43D3E4B31FB68C6C00DFF891 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 43D3E4B21FB68C6C00DFF891 /* Assets.xcassets */; };
+		43D3E4B61FB68C6C00DFF891 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 43D3E4B41FB68C6C00DFF891 /* LaunchScreen.storyboard */; };
+		43D3E4C11FB68C6C00DFF891 /* pattern_recognition_iosTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43D3E4C01FB68C6C00DFF891 /* pattern_recognition_iosTests.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		43D3E4BD1FB68C6C00DFF891 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 43D3E4A01FB68C6C00DFF891 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 43D3E4A71FB68C6C00DFF891;
+			remoteInfo = "pattern-recognition-ios";
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		43D3E4A81FB68C6C00DFF891 /* pattern-recognition-ios.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "pattern-recognition-ios.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		43D3E4AB1FB68C6C00DFF891 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		43D3E4AD1FB68C6C00DFF891 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		43D3E4B01FB68C6C00DFF891 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		43D3E4B21FB68C6C00DFF891 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		43D3E4B51FB68C6C00DFF891 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		43D3E4B71FB68C6C00DFF891 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		43D3E4BC1FB68C6C00DFF891 /* pattern-recognition-iosTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "pattern-recognition-iosTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		43D3E4C01FB68C6C00DFF891 /* pattern_recognition_iosTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = pattern_recognition_iosTests.swift; sourceTree = "<group>"; };
+		43D3E4C21FB68C6C00DFF891 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		43D3E4A51FB68C6C00DFF891 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		43D3E4B91FB68C6C00DFF891 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		43D3E49F1FB68C6C00DFF891 = {
+			isa = PBXGroup;
+			children = (
+				43D3E4AA1FB68C6C00DFF891 /* pattern-recognition-ios */,
+				43D3E4BF1FB68C6C00DFF891 /* pattern-recognition-iosTests */,
+				43D3E4A91FB68C6C00DFF891 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		43D3E4A91FB68C6C00DFF891 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				43D3E4A81FB68C6C00DFF891 /* pattern-recognition-ios.app */,
+				43D3E4BC1FB68C6C00DFF891 /* pattern-recognition-iosTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		43D3E4AA1FB68C6C00DFF891 /* pattern-recognition-ios */ = {
+			isa = PBXGroup;
+			children = (
+				43D3E4AB1FB68C6C00DFF891 /* AppDelegate.swift */,
+				43D3E4AD1FB68C6C00DFF891 /* ViewController.swift */,
+				43D3E4AF1FB68C6C00DFF891 /* Main.storyboard */,
+				43D3E4B21FB68C6C00DFF891 /* Assets.xcassets */,
+				43D3E4B41FB68C6C00DFF891 /* LaunchScreen.storyboard */,
+				43D3E4B71FB68C6C00DFF891 /* Info.plist */,
+			);
+			path = "pattern-recognition-ios";
+			sourceTree = "<group>";
+		};
+		43D3E4BF1FB68C6C00DFF891 /* pattern-recognition-iosTests */ = {
+			isa = PBXGroup;
+			children = (
+				43D3E4C01FB68C6C00DFF891 /* pattern_recognition_iosTests.swift */,
+				43D3E4C21FB68C6C00DFF891 /* Info.plist */,
+			);
+			path = "pattern-recognition-iosTests";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		43D3E4A71FB68C6C00DFF891 /* pattern-recognition-ios */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 43D3E4C51FB68C6C00DFF891 /* Build configuration list for PBXNativeTarget "pattern-recognition-ios" */;
+			buildPhases = (
+				43D3E4A41FB68C6C00DFF891 /* Sources */,
+				43D3E4A51FB68C6C00DFF891 /* Frameworks */,
+				43D3E4A61FB68C6C00DFF891 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "pattern-recognition-ios";
+			productName = "pattern-recognition-ios";
+			productReference = 43D3E4A81FB68C6C00DFF891 /* pattern-recognition-ios.app */;
+			productType = "com.apple.product-type.application";
+		};
+		43D3E4BB1FB68C6C00DFF891 /* pattern-recognition-iosTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 43D3E4C81FB68C6C00DFF891 /* Build configuration list for PBXNativeTarget "pattern-recognition-iosTests" */;
+			buildPhases = (
+				43D3E4B81FB68C6C00DFF891 /* Sources */,
+				43D3E4B91FB68C6C00DFF891 /* Frameworks */,
+				43D3E4BA1FB68C6C00DFF891 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				43D3E4BE1FB68C6C00DFF891 /* PBXTargetDependency */,
+			);
+			name = "pattern-recognition-iosTests";
+			productName = "pattern-recognition-iosTests";
+			productReference = 43D3E4BC1FB68C6C00DFF891 /* pattern-recognition-iosTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		43D3E4A01FB68C6C00DFF891 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 0910;
+				LastUpgradeCheck = 0910;
+				ORGANIZATIONNAME = "Thor Kell";
+				TargetAttributes = {
+					43D3E4A71FB68C6C00DFF891 = {
+						CreatedOnToolsVersion = 9.1;
+						ProvisioningStyle = Automatic;
+					};
+					43D3E4BB1FB68C6C00DFF891 = {
+						CreatedOnToolsVersion = 9.1;
+						ProvisioningStyle = Automatic;
+						TestTargetID = 43D3E4A71FB68C6C00DFF891;
+					};
+				};
+			};
+			buildConfigurationList = 43D3E4A31FB68C6C00DFF891 /* Build configuration list for PBXProject "pattern-recognition-ios" */;
+			compatibilityVersion = "Xcode 8.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 43D3E49F1FB68C6C00DFF891;
+			productRefGroup = 43D3E4A91FB68C6C00DFF891 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				43D3E4A71FB68C6C00DFF891 /* pattern-recognition-ios */,
+				43D3E4BB1FB68C6C00DFF891 /* pattern-recognition-iosTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		43D3E4A61FB68C6C00DFF891 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				43D3E4B61FB68C6C00DFF891 /* LaunchScreen.storyboard in Resources */,
+				43D3E4B31FB68C6C00DFF891 /* Assets.xcassets in Resources */,
+				43D3E4B11FB68C6C00DFF891 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		43D3E4BA1FB68C6C00DFF891 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		43D3E4A41FB68C6C00DFF891 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				43D3E4AE1FB68C6C00DFF891 /* ViewController.swift in Sources */,
+				43D3E4AC1FB68C6C00DFF891 /* AppDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		43D3E4B81FB68C6C00DFF891 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				43D3E4C11FB68C6C00DFF891 /* pattern_recognition_iosTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		43D3E4BE1FB68C6C00DFF891 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 43D3E4A71FB68C6C00DFF891 /* pattern-recognition-ios */;
+			targetProxy = 43D3E4BD1FB68C6C00DFF891 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		43D3E4AF1FB68C6C00DFF891 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				43D3E4B01FB68C6C00DFF891 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		43D3E4B41FB68C6C00DFF891 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				43D3E4B51FB68C6C00DFF891 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		43D3E4C31FB68C6C00DFF891 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.1;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		43D3E4C41FB68C6C00DFF891 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.1;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		43D3E4C61FB68C6C00DFF891 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = "pattern-recognition-ios/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "tidepool.pattern-recognition-ios";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		43D3E4C71FB68C6C00DFF891 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = "pattern-recognition-ios/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "tidepool.pattern-recognition-ios";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		43D3E4C91FB68C6C00DFF891 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = "pattern-recognition-iosTests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "tidepool.pattern-recognition-iosTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/pattern-recognition-ios.app/pattern-recognition-ios";
+			};
+			name = Debug;
+		};
+		43D3E4CA1FB68C6C00DFF891 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = "pattern-recognition-iosTests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "tidepool.pattern-recognition-iosTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/pattern-recognition-ios.app/pattern-recognition-ios";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		43D3E4A31FB68C6C00DFF891 /* Build configuration list for PBXProject "pattern-recognition-ios" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				43D3E4C31FB68C6C00DFF891 /* Debug */,
+				43D3E4C41FB68C6C00DFF891 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		43D3E4C51FB68C6C00DFF891 /* Build configuration list for PBXNativeTarget "pattern-recognition-ios" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				43D3E4C61FB68C6C00DFF891 /* Debug */,
+				43D3E4C71FB68C6C00DFF891 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		43D3E4C81FB68C6C00DFF891 /* Build configuration list for PBXNativeTarget "pattern-recognition-iosTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				43D3E4C91FB68C6C00DFF891 /* Debug */,
+				43D3E4CA1FB68C6C00DFF891 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 43D3E4A01FB68C6C00DFF891 /* Project object */;
+}
