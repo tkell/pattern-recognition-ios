@@ -36,8 +36,14 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         // we can wrap this in `if (newMedia)`,
         // but we won't do it yet because then we can't test it on the simulator.
         let touchPoint = tapGestureRecognizer.location(in: self.view)
-        print("Yes, we have tapped the image view")
-        print(touchPoint.x, touchPoint.y)
+        let button = UIButton(frame: CGRect(x: touchPoint.x, y: touchPoint.y, width: 50, height: 50))
+        button.layer.cornerRadius = 0.5 * button.bounds.size.width
+        button.clipsToBounds = true
+        button.backgroundColor = UIColor.red
+        button.alpha = 0.5
+        view.addSubview(button)
+        // We should also keep a list of buttons somewhere, but we can wait on that.
+        // This is also a good place to add flair, draw those lines, etc
     }
     
     
