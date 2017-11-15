@@ -17,7 +17,8 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         
-        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(imageTapped(tapGestureRecognizer:)))
+        let tapGestureRecognizer = UITapGestureRecognizer(target: self,
+                                                          action: #selector(imageTapped(tapGestureRecognizer:)))
         imageView.isUserInteractionEnabled = true
         imageView.addGestureRecognizer(tapGestureRecognizer)
     }
@@ -27,10 +28,16 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         // Dispose of any resources that can be recreated.
     }
     
+    
+    
     // ** TAP + BUTTON CREATION CODE
     @objc func imageTapped(tapGestureRecognizer: UITapGestureRecognizer) {
         _ = tapGestureRecognizer.view as! UIImageView
+        // we can wrap this in `if (newMedia)`,
+        // but we won't do it yet because then we can't test it on the simulator.
+        let touchPoint = tapGestureRecognizer.location(in: self.view)
         print("Yes, we have tapped the image view")
+        print(touchPoint.x, touchPoint.y)
     }
     
     
