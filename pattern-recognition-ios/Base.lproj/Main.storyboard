@@ -28,9 +28,8 @@
                                     <action selector="useCamera:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Uta-FK-Rml"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ufW-7k-tjA">
+                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ufW-7k-tjA">
                                 <rect key="frame" x="261" y="617" width="98" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Send a POST"/>
                                 <connections>
                                     <action selector="sendPostRequest:" destination="BYZ-38-t0r" eventType="touchUpInside" id="dEx-FZ-ixd"/>
@@ -49,6 +48,7 @@
                             <constraint firstItem="ZR2-49-2XF" firstAttribute="top" secondItem="W1V-PG-yod" secondAttribute="bottom" constant="8" symbolic="YES" id="Rf9-LN-Yjf"/>
                             <constraint firstItem="W1V-PG-yod" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="YUU-No-Joq"/>
                             <constraint firstItem="W1V-PG-yod" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="doG-UK-yvD"/>
+                            <constraint firstItem="ufW-7k-tjA" firstAttribute="top" secondItem="W1V-PG-yod" secondAttribute="bottom" constant="8" id="swE-Tb-BSS"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>

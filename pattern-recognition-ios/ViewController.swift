@@ -29,8 +29,46 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         // Dispose of any resources that can be recreated.
     }
     
+    // ** POST REQUEST CODE
+    
     @IBAction func sendPostRequest(_ sender: UIButton) {
-        print("we have pressed the POST button")
+        // Test data!
+        let l1 = ["x": 450, "y": 100] as [String: Int]
+        let l2 = ["x": 450, "y": 210] as [String: Int]
+        let l3 = ["x": 450, "y": 320] as [String: Int]
+
+        let location1 = ["location": l1] as [String: Any]
+        let location2 = ["location": l2] as [String: Any]
+        let location3 = ["location": l3] as [String: Any]
+        let locationArray = [location1, location2, location3]
+        let testDict = ["adventure": 0, "buttonData": locationArray] as [String: Any]
+        
+        // Create request
+        var request = URLRequest(url: URL(string: "http://tide-pool.link/pattern-rec/analysis")!)
+        request.httpMethod = "POST"
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        let jsonData = try? JSONSerialization.data(withJSONObject: testDict, options: .prettyPrinted)
+        request.httpBody = jsonData
+
+        let task = URLSession.shared.dataTask(with: request) { data, response, error in
+            guard let data = data, error == nil else {
+                // check for fundamental networking error
+                print("Network error!")
+                return
+            }
+            
+            if let httpStatus = response as? HTTPURLResponse, httpStatus.statusCode != 200 {
+                // check for http errors
+                print("statusCode should be 200, but is \(httpStatus.statusCode)")
+            }
+            do {
+                let json = try JSONSerialization.jsonObject(with: data) as? [String: Any]
+                print(json) // SUCCESS!
+            } catch {
+                print("Error deserializing JSON: \(error)")
+            }
+        }
+        task.resume()
     }
     
     // ** TAP + BUTTON CREATION CODE
