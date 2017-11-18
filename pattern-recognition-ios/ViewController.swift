@@ -17,6 +17,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         
+        // Allow touches on the image
         let tapGestureRecognizer = UITapGestureRecognizer(target: self,
                                                           action: #selector(imageTapped(tapGestureRecognizer:)))
         imageView.isUserInteractionEnabled = true
@@ -28,7 +29,9 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         // Dispose of any resources that can be recreated.
     }
     
-    
+    @IBAction func sendPostRequest(_ sender: UIButton) {
+        print("we have pressed the POST button")
+    }
     
     // ** TAP + BUTTON CREATION CODE
     @objc func imageTapped(tapGestureRecognizer: UITapGestureRecognizer) {

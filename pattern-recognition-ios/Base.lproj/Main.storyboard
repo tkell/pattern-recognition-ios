@@ -21,11 +21,20 @@
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="W1V-PG-yod">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="609"/>
                             </imageView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZR2-49-2XF">
-                                <rect key="frame" x="138.5" y="617" width="98" height="30"/>
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZR2-49-2XF">
+                                <rect key="frame" x="16" y="617" width="98" height="30"/>
                                 <state key="normal" title="Take A Picture"/>
                                 <connections>
                                     <action selector="useCamera:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Uta-FK-Rml"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ufW-7k-tjA">
+                                <rect key="frame" x="261" y="617" width="98" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Send a POST"/>
+                                <connections>
+                                    <action selector="sendPostRequest:" destination="BYZ-38-t0r" eventType="touchUpInside" id="dEx-FZ-ixd"/>
+                                    <action selector="useCamera:" destination="BYZ-38-t0r" eventType="touchUpInside" id="tvY-Ka-PJG"/>
                                 </connections>
                             </button>
                         </subviews>
