@@ -12,7 +12,8 @@ import MobileCoreServices
 class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     @IBOutlet weak var imageView: UIImageView!
     var newMedia: Bool?
-    var buttonList: Array<[String: Any]> = []
+    var buttonLocList: Array<[String: Any]> = []
+    var buttonRefMap: [String: UIButton] = [:] // Tacky stringmap with 'x---y', ah well.
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -50,7 +51,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         var request = URLRequest(url: URL(string: "http://tide-pool.link/pattern-rec/analysis")!)
         request.httpMethod = "POST"
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-        let jsonBody = ["adventure": 0, "buttonData": buttonList] as [String: Any]
+        let jsonBody = ["adventure": 0, "buttonData": buttonLocList] as [String: Any]
         let jsonData = try? JSONSerialization.data(withJSONObject: jsonBody, options: .prettyPrinted)
         request.httpBody = jsonData
 
@@ -67,12 +68,28 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
             }
             do {
                 let json = try JSONSerialization.jsonObject(with: data) as? [String: Any]
-                print(json as Any) // SUCCESS!
+                print(json!["mapping"] as Any) // SUCCESS!
+                for b in json!["mapping"] as! [AnyObject] {
+                    let loc = b["location"]! as! [String: Int]
+                    let xVal = loc["x"]!
+                    let yVal = loc["y"]!
+                    let key = "\(xVal)---\(yVal)"
+                    let theButton = self.buttonRefMap[key]!
+                    // "UIControl.addTarget(_:action:for:) must be used from main thread only"
+                    // ugh!  How can we get around this?
+                    // same function per target, will need to fix that later.
+                }
+
+                
             } catch {
                 print("Error deserializing JSON: \(error)")
             }
         }
         task.resume()
+    }
+    
+    @objc func buttonClickTest() {
+        print("Button Clicked")
     }
     
     // ** TAP + BUTTON CREATION CODE
@@ -86,14 +103,24 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         button.clipsToBounds = true
         button.backgroundColor = UIColor.red
         button.alpha = 0.5
+        // OK, so this works - we could do something cute like subclassing `button`?
+        button.addTarget(self, action:#selector(self.buttonClickTest), for: .touchUpInside)
         view.addSubview(button)
         
-        let l = ["x": Int(floor(touchPoint.x)), "y": Int(floor(touchPoint.y))] as [String: Int]
-        let location = ["location": l] as [String: Any]
-        buttonList.append(location)
-        print(buttonList)
+        let xInt = Int(floor(touchPoint.x))
+        let yInt = Int(floor(touchPoint.y))
         
-        // We should also keep a list of buttons somewhere, but we can wait on that.
+        // Set up the JSON data
+        let l = ["x": xInt, "y": yInt] as [String: Int]
+        let location = ["location": l] as [String: Any]
+        buttonLocList.append(location)
+        print(buttonLocList)
+        
+        // Store the button by location so we can assign to it later on
+        let key = "\(xInt)---\(yInt)"
+        buttonRefMap[key] = button
+        print(buttonRefMap)
+        
         // This is also a good place to add flair, draw those lines, etc
     }
     
