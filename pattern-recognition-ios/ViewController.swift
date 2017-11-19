@@ -31,6 +31,30 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         // Dispose of any resources that can be recreated.
     }
     
+    // ** CUSTOM BUTTON CLASS
+    class NoteButton: UIButton {
+        var freq: Double
+        var clickable: Bool
+        
+        required init(freq: Double = 0, frame: CGRect) {
+            // set freq before super.init is called
+            self.freq = freq
+            self.clickable = false
+            super.init(frame: frame)
+        }
+        required init?(coder aDecoder: NSCoder) {
+            fatalError("init(coder:) has not been implemented")
+        }
+    }
+    
+    // ** BUTTON CLICK FUNCTION
+    @objc func buttonClickTest(sender:NoteButton) {
+        print("Button Clicked")
+        if (sender.clickable) {
+            print(sender.freq)
+        }
+    }
+    
     // ** POST REQUEST CODE
     
     @IBAction func sendPostRequest(_ sender: UIButton) {
@@ -74,12 +98,13 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
                     let xVal = loc["x"]!
                     let yVal = loc["y"]!
                     let key = "\(xVal)---\(yVal)"
-                    let theButton = self.buttonRefMap[key]!
-                    // "UIControl.addTarget(_:action:for:) must be used from main thread only"
-                    // ugh!  How can we get around this?
-                    // same function per target, will need to fix that later.
+                    let theButton = self.buttonRefMap[key] as! NoteButton
+                    let f = b["noteFreq"] as! Double
+                    theButton.freq = f
+                    theButton.clickable = true
                 }
-
+                // Turn this off to prevent any more buttons - can't do this here, hmm
+                // need to use my own NewMedia flag!
                 
             } catch {
                 print("Error deserializing JSON: \(error)")
@@ -87,10 +112,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         }
         task.resume()
     }
-    
-    @objc func buttonClickTest() {
-        print("Button Clicked")
-    }
+
     
     // ** TAP + BUTTON CREATION CODE
     @objc func imageTapped(tapGestureRecognizer: UITapGestureRecognizer) {
@@ -98,7 +120,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         // we can wrap this in `if (newMedia)`,
         // but we won't do it yet because then we can't test it on the simulator.
         let touchPoint = tapGestureRecognizer.location(in: self.view)
-        let button = UIButton(frame: CGRect(x: touchPoint.x, y: touchPoint.y, width: 50, height: 50))
+        let button = NoteButton(freq: 0, frame: CGRect(x: touchPoint.x, y: touchPoint.y, width: 50, height: 50))
         button.layer.cornerRadius = 0.5 * button.bounds.size.width
         button.clipsToBounds = true
         button.backgroundColor = UIColor.red
