@@ -12,6 +12,7 @@ import MobileCoreServices
 class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     @IBOutlet weak var imageView: UIImageView!
     var newMedia: Bool?
+    var buttonList: Array<[String: Any]> = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -33,6 +34,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     
     @IBAction func sendPostRequest(_ sender: UIButton) {
         // Test data!
+        /*
         let l1 = ["x": 450, "y": 100] as [String: Int]
         let l2 = ["x": 450, "y": 210] as [String: Int]
         let l3 = ["x": 450, "y": 320] as [String: Int]
@@ -42,12 +44,14 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         let location3 = ["location": l3] as [String: Any]
         let locationArray = [location1, location2, location3]
         let testDict = ["adventure": 0, "buttonData": locationArray] as [String: Any]
+        */
         
         // Create request
         var request = URLRequest(url: URL(string: "http://tide-pool.link/pattern-rec/analysis")!)
         request.httpMethod = "POST"
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-        let jsonData = try? JSONSerialization.data(withJSONObject: testDict, options: .prettyPrinted)
+        let jsonBody = ["adventure": 0, "buttonData": buttonList] as [String: Any]
+        let jsonData = try? JSONSerialization.data(withJSONObject: jsonBody, options: .prettyPrinted)
         request.httpBody = jsonData
 
         let task = URLSession.shared.dataTask(with: request) { data, response, error in
@@ -63,7 +67,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
             }
             do {
                 let json = try JSONSerialization.jsonObject(with: data) as? [String: Any]
-                print(json) // SUCCESS!
+                print(json as Any) // SUCCESS!
             } catch {
                 print("Error deserializing JSON: \(error)")
             }
@@ -83,6 +87,12 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         button.backgroundColor = UIColor.red
         button.alpha = 0.5
         view.addSubview(button)
+        
+        let l = ["x": Int(floor(touchPoint.x)), "y": Int(floor(touchPoint.y))] as [String: Int]
+        let location = ["location": l] as [String: Any]
+        buttonList.append(location)
+        print(buttonList)
+        
         // We should also keep a list of buttons somewhere, but we can wait on that.
         // This is also a good place to add flair, draw those lines, etc
     }
