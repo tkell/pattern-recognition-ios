@@ -8,16 +8,28 @@
 
 import UIKit
 import MobileCoreServices
+import AudioKit
 
 class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     @IBOutlet weak var imageView: UIImageView!
     var newMedia: Bool?
+    var hasMapped: Bool?
+
     var buttonLocList: Array<[String: Any]> = []
     var buttonRefMap: [String: UIButton] = [:] // Tacky stringmap with 'x---y', ah well.
+    var osc = AKOscillator() // our test oscillator
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
+        
+        // AudioKit setup
+        AudioKit.output = AKMixer(osc)
+        AudioKit.start()
+        
+        // Awkward booleans for my own state
+        newMedia = false
+        hasMapped = false
         
         // Allow touches on the image
         let tapGestureRecognizer = UITapGestureRecognizer(target: self,
@@ -47,13 +59,24 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         }
     }
     
-    // ** BUTTON CLICK FUNCTION
-    @objc func buttonClickTest(sender:NoteButton) {
-        print("Button Clicked")
-        if (sender.clickable) {
+    // ** BUTTON CLICK FUNCTIONS
+    @objc func buttonNoteOn(sender:NoteButton) {
+        print("Button touched ...")
+        if (sender.clickable && hasMapped!) {
             print(sender.freq)
+            osc.amplitude = 0.5
+            osc.frequency = sender.freq
+            osc.start()
         }
     }
+    
+    @objc func buttonNoteOff(sender:NoteButton) {
+        print("Button released ...")
+        if (sender.clickable) {
+            osc.stop()
+        }
+    }
+    
     
     // ** POST REQUEST CODE
     
@@ -92,7 +115,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
             }
             do {
                 let json = try JSONSerialization.jsonObject(with: data) as? [String: Any]
-                print(json!["mapping"] as Any) // SUCCESS!
+                self.hasMapped = true
                 for b in json!["mapping"] as! [AnyObject] {
                     let loc = b["location"]! as! [String: Int]
                     let xVal = loc["x"]!
@@ -103,8 +126,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
                     theButton.freq = f
                     theButton.clickable = true
                 }
-                // Turn this off to prevent any more buttons - can't do this here, hmm
-                // need to use my own NewMedia flag!
+                // Turn this off to prevent any more buttons - need to use my own NewMedia flag!
                 
             } catch {
                 print("Error deserializing JSON: \(error)")
@@ -117,6 +139,10 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     // ** TAP + BUTTON CREATION CODE
     @objc func imageTapped(tapGestureRecognizer: UITapGestureRecognizer) {
         _ = tapGestureRecognizer.view as! UIImageView
+        // If we've done a mapping, we don't need to make more buttons!
+        if (hasMapped!) {
+            return
+        }
         // we can wrap this in `if (newMedia)`,
         // but we won't do it yet because then we can't test it on the simulator.
         let touchPoint = tapGestureRecognizer.location(in: self.view)
@@ -125,8 +151,12 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         button.clipsToBounds = true
         button.backgroundColor = UIColor.red
         button.alpha = 0.5
-        // OK, so this works - we could do something cute like subclassing `button`?
-        button.addTarget(self, action:#selector(self.buttonClickTest), for: .touchUpInside)
+        
+        // Unsure if these are the correct events, but I think they are close
+        // Might have to be `touchUp`, in case the user moves their touching-finger away?
+        button.addTarget(self, action:#selector(self.buttonNoteOn), for: .touchDown)
+        button.addTarget(self, action:#selector(self.buttonNoteOff), for: .touchUpInside)
+
         view.addSubview(button)
         
         let xInt = Int(floor(touchPoint.x))
