@@ -40,7 +40,6 @@
                                 <state key="normal" title="Send a POST"/>
                                 <connections>
                                     <action selector="sendPostRequest:" destination="BYZ-38-t0r" eventType="touchUpInside" id="dEx-FZ-ixd"/>
-                                    <action selector="useCamera:" destination="BYZ-38-t0r" eventType="touchUpInside" id="tvY-Ka-PJG"/>
                                 </connections>
                             </button>
                         </subviews>

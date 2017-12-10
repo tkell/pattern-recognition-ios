@@ -156,7 +156,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         // Might have to be `touchUp`, in case the user moves their touching-finger away?
         button.addTarget(self, action:#selector(self.buttonNoteOn), for: .touchDown)
         button.addTarget(self, action:#selector(self.buttonNoteOff), for: .touchUpInside)
-
+        button.addTarget(self, action:#selector(self.buttonNoteOff), for: .touchUpOutside)
         view.addSubview(button)
         
         let xInt = Int(floor(touchPoint.x))
