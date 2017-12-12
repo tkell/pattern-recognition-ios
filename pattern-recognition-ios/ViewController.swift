@@ -145,8 +145,10 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         }
         // we can wrap this in `if (newMedia)`,
         // but we won't do it yet because then we can't test it on the simulator.
+        
         let touchPoint = tapGestureRecognizer.location(in: self.view)
-        let buttonSize = 150.0
+        // Take one-tenth of the average of the height and width to be the size of each button
+        let buttonSize = (self.view.frame.size.height + self.view.frame.size.width / 2) / 10
         let buttonFrame = CGRect(x: touchPoint.x - CGFloat(buttonSize / 2),
                                  y: touchPoint.y - CGFloat(buttonSize / 2),
                                  width: CGFloat(buttonSize),
