@@ -146,7 +146,12 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         // we can wrap this in `if (newMedia)`,
         // but we won't do it yet because then we can't test it on the simulator.
         let touchPoint = tapGestureRecognizer.location(in: self.view)
-        let button = NoteButton(freq: 0, frame: CGRect(x: touchPoint.x, y: touchPoint.y, width: 50, height: 50))
+        let buttonSize = 150.0
+        let buttonFrame = CGRect(x: touchPoint.x - CGFloat(buttonSize / 2),
+                                 y: touchPoint.y - CGFloat(buttonSize / 2),
+                                 width: CGFloat(buttonSize),
+                                 height: CGFloat(buttonSize))
+        let button = NoteButton(freq: 0, frame: buttonFrame)
         button.layer.cornerRadius = 0.5 * button.bounds.size.width
         button.clipsToBounds = true
         button.backgroundColor = UIColor.red
