@@ -146,6 +146,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         // we can wrap this in `if (newMedia)`,
         // but we won't do it yet because then we can't test it on the simulator.
         
+        
         let touchPoint = tapGestureRecognizer.location(in: self.view)
         // Take one-tenth of the average of the height and width to be the size of each button
         let buttonSize = (self.view.frame.size.height + self.view.frame.size.width / 2) / 10
@@ -156,8 +157,10 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         let button = NoteButton(freq: 0, frame: buttonFrame)
         button.layer.cornerRadius = 0.5 * button.bounds.size.width
         button.clipsToBounds = true
-        button.backgroundColor = UIColor.red
-        button.alpha = 0.5
+        button.backgroundColor = UIColor.black
+        button.alpha = 0.2
+        button.layer.borderWidth = 2
+        button.layer.borderColor = UIColor.white.cgColor
         
         // Unsure if these are the correct events, but I think they are close
         // Might have to be `touchUp`, in case the user moves their touching-finger away?
