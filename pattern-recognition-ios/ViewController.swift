@@ -21,7 +21,6 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
         
         // AudioKit setup
         AudioKit.output = AKMixer(osc)
@@ -81,6 +80,11 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     // ** POST REQUEST CODE
     
     @IBAction func sendPostRequest(_ sender: UIButton) {
+        // Don't map twice, only map if we have a picture
+        if (hasMapped! && !newMedia!) {
+            return
+        }
+        
         // Test data!
         /*
         let l1 = ["x": 450, "y": 100] as [String: Int]
@@ -102,13 +106,13 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         let jsonData = try? JSONSerialization.data(withJSONObject: jsonBody, options: .prettyPrinted)
         request.httpBody = jsonData
 
+        // Send & deal with the response
         let task = URLSession.shared.dataTask(with: request) { data, response, error in
             guard let data = data, error == nil else {
                 // check for fundamental networking error
                 print("Network error!")
                 return
             }
-            
             if let httpStatus = response as? HTTPURLResponse, httpStatus.statusCode != 200 {
                 // check for http errors
                 print("statusCode should be 200, but is \(httpStatus.statusCode)")
@@ -126,8 +130,6 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
                     theButton.freq = f
                     theButton.clickable = true
                 }
-                // Turn this off to prevent any more buttons - need to use my own NewMedia flag!
-                
             } catch {
                 print("Error deserializing JSON: \(error)")
             }
@@ -139,15 +141,15 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     // ** TAP + BUTTON CREATION CODE
     @objc func imageTapped(tapGestureRecognizer: UITapGestureRecognizer) {
         _ = tapGestureRecognizer.view as! UIImageView
-        // If we've done a mapping, we don't need to make more buttons!
+        // If we've done a mapping, or if we have not taken a picture, get out
+        // Don't forget to add back `|| !newMedia!` once we are off the sim!
         if (hasMapped!) {
             return
         }
-        // we can wrap this in `if (newMedia)`,
-        // but we won't do it yet because then we can't test it on the simulator.
-        
         
         let touchPoint = tapGestureRecognizer.location(in: self.view)
+        
+        // Create the button
         // Take one-tenth of the average of the height and width to be the size of each button
         let buttonSize = (self.view.frame.size.height + self.view.frame.size.width / 2) / 10
         let buttonFrame = CGRect(x: touchPoint.x - CGFloat(buttonSize / 2),
@@ -162,8 +164,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         button.layer.borderWidth = 2
         button.layer.borderColor = UIColor.white.cgColor
         
-        // Unsure if these are the correct events, but I think they are close
-        // Might have to be `touchUp`, in case the user moves their touching-finger away?
+        // Add button events
         button.addTarget(self, action:#selector(self.buttonNoteOn), for: .touchDown)
         button.addTarget(self, action:#selector(self.buttonNoteOff), for: .touchUpInside)
         button.addTarget(self, action:#selector(self.buttonNoteOff), for: .touchUpOutside)
@@ -197,6 +198,10 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
             imagePicker.mediaTypes = [kUTTypeImage as String]
             imagePicker.allowsEditing = false
             self.present(imagePicker, animated: true, completion: nil)
+            
+            // Remove old buttons, reset state booleans
+            _ = buttonRefMap.values.map {b in b.removeFromSuperview()}
+            hasMapped = false
             newMedia = true
         }
     }
@@ -234,7 +239,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         }
     }
     
-    // More Strange boilterplate for loading the image
+    // More strange boilterplate for loading the image
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
         self.dismiss(animated: true, completion: nil)
     }   
