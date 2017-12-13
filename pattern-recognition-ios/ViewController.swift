@@ -80,8 +80,8 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     // ** POST REQUEST CODE
     
     @IBAction func sendPostRequest(_ sender: UIButton) {
-        // Don't map twice, only map if we have a picture
-        if (hasMapped! && !newMedia!) {
+        // Don't map twice, don't map if we have no image
+        if (hasMapped! || !newMedia!) {
             return
         }
         
@@ -143,7 +143,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         _ = tapGestureRecognizer.view as! UIImageView
         // If we've done a mapping, or if we have not taken a picture, get out
         // Don't forget to add back `|| !newMedia!` once we are off the sim!
-        if (hasMapped!) {
+        if (hasMapped! || !newMedia!) {
             return
         }
         
@@ -182,7 +182,6 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         // Store the button by location so we can assign to it later on
         let key = "\(xInt)---\(yInt)"
         buttonRefMap[key] = button
-        print(buttonRefMap)
         
         // This is also a good place to add flair, draw those lines, etc
     }
@@ -198,11 +197,6 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
             imagePicker.mediaTypes = [kUTTypeImage as String]
             imagePicker.allowsEditing = false
             self.present(imagePicker, animated: true, completion: nil)
-            
-            // Remove old buttons, reset state booleans
-            _ = buttonRefMap.values.map {b in b.removeFromSuperview()}
-            hasMapped = false
-            newMedia = true
         }
     }
     
@@ -215,14 +209,12 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
             let image = info[UIImagePickerControllerOriginalImage] as! UIImage
             imageView.image = image
             
-            if (newMedia == true) {
-                UIImageWriteToSavedPhotosAlbum(image,
-                                               self,
-                                               #selector(image(_:didFinishSavingWithError:contextInfo:)),
-                                               nil)
-            } else if mediaType.isEqual(to: kUTTypeMovie as String) {
-                // Code to support video here - not for this project!
-            }
+            // Remove old buttons, reset state booleans
+            _ = buttonRefMap.values.map {b in b.removeFromSuperview()}
+            buttonRefMap = [:]
+            buttonLocList = []
+            hasMapped = false
+            newMedia = true
         }
     }
     
