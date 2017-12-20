@@ -17,14 +17,9 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
 
     var buttonLocList: Array<[String: Any]> = []
     var buttonRefMap: [String: UIButton] = [:] // Tacky stringmap with 'x---y', ah well.
-    var osc = AKOscillator() // our test oscillator
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        // AudioKit setup
-        AudioKit.output = AKMixer(osc)
-        AudioKit.start()
         
         // Awkward booleans for my own state
         newMedia = false
@@ -46,11 +41,16 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     class NoteButton: UIButton {
         var freq: Double
         var clickable: Bool
+        var osc: AKOscillator
+
         
         required init(freq: Double = 0, frame: CGRect) {
-            // set freq before super.init is called
+            // set my own params before super.init is called
             self.freq = freq
             self.clickable = false
+            self.osc = AKOscillator()
+            AudioKit.output = AKMixer(self.osc)
+
             super.init(frame: frame)
         }
         required init?(coder aDecoder: NSCoder) {
@@ -63,16 +63,16 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         print("Button touched ...")
         if (sender.clickable && hasMapped!) {
             print(sender.freq)
-            osc.amplitude = 0.5
-            osc.frequency = sender.freq
-            osc.start()
+            sender.osc.amplitude = 0.5
+            sender.osc.frequency = sender.freq
+            sender.osc.start()
         }
     }
     
     @objc func buttonNoteOff(sender:NoteButton) {
         print("Button released ...")
         if (sender.clickable) {
-            osc.stop()
+            sender.osc.stop()
         }
     }
     
@@ -119,6 +119,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
             }
             do {
                 let json = try JSONSerialization.jsonObject(with: data) as? [String: Any]
+                AudioKit.start()
                 self.hasMapped = true
                 for b in json!["mapping"] as! [AnyObject] {
                     let loc = b["location"]! as! [String: Int]
