@@ -42,28 +42,24 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         var freq: Double
         var clickable: Bool
 
-        var osc: AKOscillator
+        var osc: AKOscillatorBank
         var filter: AKLowPassFilter
-        var envelope: AKAmplitudeEnvelope!
-
-
         
         required init(freq: Double = 0, frame: CGRect) {
-            // set my own params before super.init is called
             self.freq = freq
             self.clickable = false
             
             // Set up audio signal path
-            self.osc = AKOscillator(waveform: AKTable(.square))
-            self.filter = AKLowPassFilter(osc, cutoffFrequency: 22000.0, resonance: 0.2)
-            self.envelope = AKAmplitudeEnvelope(self.filter,
-                                                  attackDuration: 0.03,
-                                                  decayDuration: 0.3,
-                                                  sustainLevel: 5.0,
-                                                  releaseDuration: 0.5)
+            self.osc = AKOscillatorBank(waveform: AKTable(.square),
+                                        attackDuration: 0.125,
+                                        decayDuration: 0.25,
+                                        sustainLevel: 0.25,
+                                        releaseDuration: 0.1
+            )
+            self.filter = AKLowPassFilter(osc,cutoffFrequency: 8000.0, resonance: 0.1)
 
             // assign to output
-            AudioKit.output = self.envelope
+            AudioKit.output = AKMixer(self.filter)
 
             super.init(frame: frame)
         }
@@ -77,18 +73,16 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         print("Button touched ...")
         if (sender.clickable && hasMapped!) {
             print(sender.freq)
-            sender.osc.amplitude = 0.5
-            sender.osc.frequency = sender.freq
-            sender.envelope.start()
-            sender.osc.start()
+            // will dummy noteNumbers work?
+            sender.osc.play(noteNumber: 100, velocity: 90, frequency: sender.freq)
         }
     }
     
     @objc func buttonNoteOff(sender:NoteButton) {
         print("Button released ...")
         if (sender.clickable) {
-            sender.osc.stop()
-            sender.envelope.stop()
+            sender.osc.stop(noteNumber: 100)
+
         }
     }
     
@@ -147,6 +141,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
                     theButton.freq = f
                     theButton.clickable = true
                 }
+                print("we mapped things!")
             } catch {
                 print("Error deserializing JSON: \(error)")
             }
