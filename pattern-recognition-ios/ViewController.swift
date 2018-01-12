@@ -41,15 +41,29 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     class NoteButton: UIButton {
         var freq: Double
         var clickable: Bool
+
         var osc: AKOscillator
+        var filter: AKLowPassFilter
+        var envelope: AKAmplitudeEnvelope!
+
 
         
         required init(freq: Double = 0, frame: CGRect) {
             // set my own params before super.init is called
             self.freq = freq
             self.clickable = false
-            self.osc = AKOscillator()
-            AudioKit.output = AKMixer(self.osc)
+            
+            // Set up audio signal path
+            self.osc = AKOscillator(waveform: AKTable(.square))
+            self.filter = AKLowPassFilter(osc, cutoffFrequency: 22000.0, resonance: 0.2)
+            self.envelope = AKAmplitudeEnvelope(self.filter,
+                                                  attackDuration: 0.03,
+                                                  decayDuration: 0.3,
+                                                  sustainLevel: 5.0,
+                                                  releaseDuration: 0.5)
+
+            // assign to output
+            AudioKit.output = self.envelope
 
             super.init(frame: frame)
         }
@@ -65,6 +79,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
             print(sender.freq)
             sender.osc.amplitude = 0.5
             sender.osc.frequency = sender.freq
+            sender.envelope.start()
             sender.osc.start()
         }
     }
@@ -73,6 +88,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         print("Button released ...")
         if (sender.clickable) {
             sender.osc.stop()
+            sender.envelope.stop()
         }
     }
     
