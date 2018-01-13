@@ -14,7 +14,6 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     @IBOutlet weak var imageView: UIImageView!
     var newMedia: Bool?
     var hasMapped: Bool?
-
     var buttonLocList: Array<[String: Any]> = []
     var buttonRefMap: [String: UIButton] = [:] // Tacky stringmap with 'x---y', ah well.
     
@@ -42,25 +41,40 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         var freq: Double
         var clickable: Bool
 
-        var osc: AKOscillatorBank
-        var filter: AKLowPassFilter
+        var osc1: AKOscillatorBank
+        var filter1: AKLowPassFilter
+        var delay1: AKDelay
+        var osc2: AKOscillatorBank
+        var filter2: AKLowPassFilter
+        var delay2: AKDelay
+
         
         required init(freq: Double = 0, frame: CGRect) {
             self.freq = freq
             self.clickable = false
             
-            // Set up audio signal path
-            self.osc = AKOscillatorBank(waveform: AKTable(.square),
+            // Set up audio signal paths
+            self.osc1 = AKOscillatorBank(waveform: AKTable(.square),
                                         attackDuration: 0.125,
                                         decayDuration: 0.25,
-                                        sustainLevel: 0.25,
+                                        sustainLevel: 0.2,
                                         releaseDuration: 0.1
             )
-            self.filter = AKLowPassFilter(osc,cutoffFrequency: 8000.0, resonance: 0.1)
+            self.filter1 = AKLowPassFilter(osc1, cutoffFrequency: 6500.0, resonance: 0.1)
+            self.delay1 = AKDelay(filter1, time: 0.166, feedback: 0.35, dryWetMix: 0.1)
 
-            // assign to output
-            AudioKit.output = AKMixer(self.filter)
+            self.osc2 = AKOscillatorBank(waveform: AKTable(.triangle),
+                                        attackDuration: 0.1,
+                                        decayDuration: 0.20,
+                                        sustainLevel: 0.25,
+                                        releaseDuration: 0.2
+            )
+            self.filter2 = AKLowPassFilter(osc2, cutoffFrequency: 8000.0, resonance: 0.1)
+            self.delay2 = AKDelay(filter1, time: 0.15, feedback: 0.4, dryWetMix: 0.2)
 
+
+            // Assign to output
+            AudioKit.output = AKMixer(self.delay1, self.delay2)
             super.init(frame: frame)
         }
         required init?(coder aDecoder: NSCoder) {
@@ -74,15 +88,17 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         if (sender.clickable && hasMapped!) {
             print(sender.freq)
             // will dummy noteNumbers work?
-            sender.osc.play(noteNumber: 100, velocity: 90, frequency: sender.freq)
+            sender.osc1.play(noteNumber: 100, velocity: 90, frequency: sender.freq)
+            sender.osc2.play(noteNumber: 100, velocity: 90, frequency: sender.freq)
+
         }
     }
     
     @objc func buttonNoteOff(sender:NoteButton) {
         print("Button released ...")
         if (sender.clickable) {
-            sender.osc.stop(noteNumber: 100)
-
+            sender.osc1.stop(noteNumber: 100)
+            sender.osc2.stop(noteNumber: 100)
         }
     }
     
