@@ -10,6 +10,7 @@ import UIKit
 import MobileCoreServices
 import AudioKit
 
+
 class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     @IBOutlet weak var imageView: UIImageView!
     var newMedia: Bool?
@@ -17,6 +18,9 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     var buttonLocList: Array<[String: Any]> = []
     var buttonRefMap: [String: UIButton] = [:] // Tacky stringmap with 'x---y', ah well.
     
+    var midi = AKMIDI()
+
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -39,6 +43,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     // ** CUSTOM BUTTON CLASS
     class NoteButton: UIButton {
         var freq: Double
+        var noteNumber: MIDINoteNumber
         var clickable: Bool
 
         var osc1: AKOscillatorBank
@@ -49,8 +54,9 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         var delay2: AKDelay
 
         
-        required init(freq: Double = 0, frame: CGRect) {
+        required init(freq: Double = 0, noteNumber: UInt8 = 0, frame: CGRect) {
             self.freq = freq
+            self.noteNumber = noteNumber
             self.clickable = false
             
             // Set up audio signal paths
@@ -86,10 +92,10 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     @objc func buttonNoteOn(sender:NoteButton) {
         print("Button touched ...")
         if (sender.clickable && hasMapped!) {
-            print(sender.freq)
-            // will dummy noteNumbers work?
-            sender.osc1.play(noteNumber: 100, velocity: 90, frequency: sender.freq)
-            sender.osc2.play(noteNumber: 100, velocity: 90, frequency: sender.freq)
+            print(sender.freq, sender.noteNumber)
+            midi.sendEvent(AKMIDIEvent(noteOn: sender.noteNumber, velocity: 90, channel: 1))
+            sender.osc1.play(noteNumber: sender.noteNumber, velocity: 90, frequency: sender.freq)
+            sender.osc2.play(noteNumber: sender.noteNumber, velocity: 90, frequency: sender.freq)
 
         }
     }
@@ -97,8 +103,9 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     @objc func buttonNoteOff(sender:NoteButton) {
         print("Button released ...")
         if (sender.clickable) {
-            sender.osc1.stop(noteNumber: 100)
-            sender.osc2.stop(noteNumber: 100)
+            midi.sendEvent(AKMIDIEvent(noteOff: sender.noteNumber, velocity: 0, channel: 1))
+            sender.osc1.stop(noteNumber: sender.noteNumber)
+            sender.osc2.stop(noteNumber: sender.noteNumber)
         }
     }
     
@@ -145,7 +152,10 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
             }
             do {
                 let json = try JSONSerialization.jsonObject(with: data) as? [String: Any]
+                
                 AudioKit.start()
+                self.midi.openOutput()
+
                 self.hasMapped = true
                 for b in json!["mapping"] as! [AnyObject] {
                     let loc = b["location"]! as! [String: Int]
@@ -154,7 +164,9 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
                     let key = "\(xVal)---\(yVal)"
                     let theButton = self.buttonRefMap[key] as! NoteButton
                     let f = b["noteFreq"] as! Double
+                    let m = b["noteMIDI"] as! UInt8
                     theButton.freq = f
+                    theButton.noteNumber = m
                     theButton.clickable = true
                 }
                 print("we mapped things!")
