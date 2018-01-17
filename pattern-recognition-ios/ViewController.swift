@@ -199,10 +199,9 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         let button = NoteButton(freq: 0, frame: buttonFrame)
         button.layer.cornerRadius = 0.5 * button.bounds.size.width
         button.clipsToBounds = true
-        button.backgroundColor = UIColor.black
-        button.alpha = 0.2
-        button.layer.borderWidth = 2
-        button.layer.borderColor = UIColor.white.cgColor
+        button.backgroundColor = UIColor(white: 0.0, alpha: 0.35)
+        button.layer.borderWidth = 5
+        button.layer.borderColor = UIColor(white: 1.0, alpha: 0.75).cgColor
         
         // Add button events
         button.addTarget(self, action:#selector(self.buttonNoteOn), for: .touchDown)
