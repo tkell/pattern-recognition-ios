@@ -17,10 +17,9 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     var hasMapped: Bool?
     var buttonLocList: Array<[String: Any]> = []
     var buttonRefMap: [String: UIButton] = [:] // Tacky stringmap with 'x---y', ah well.
-    
+    // var context: CGContext? = nil
     var midi = AKMIDI()
-
-
+ 
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -78,7 +77,6 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
             self.filter2 = AKLowPassFilter(osc2, cutoffFrequency: 8000.0, resonance: 0.1)
             self.delay2 = AKDelay(filter1, time: 0.15, feedback: 0.4, dryWetMix: 0.2)
 
-
             // Assign to output
             AudioKit.output = AKMixer(self.delay1, self.delay2)
             super.init(frame: frame)
@@ -87,6 +85,8 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
             fatalError("init(coder:) has not been implemented")
         }
     }
+    
+
     
     // ** BUTTON CLICK FUNCTIONS
     @objc func buttonNoteOn(sender:NoteButton) {
@@ -97,7 +97,27 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
             sender.osc1.play(noteNumber: sender.noteNumber, velocity: 90, frequency: sender.freq)
             sender.osc2.play(noteNumber: sender.noteNumber, velocity: 90, frequency: sender.freq)
 
-        }
+            sender.backgroundColor = UIColor(white: 0.0, alpha: 0.75)
+            sender.layer.borderColor = UIColor(white: 1.0, alpha: 1.0).cgColor
+            
+            // oh thank fuck eh.
+            
+            
+            
+            
+            
+            let path = UIBezierPath()
+            path.move(to: CGPoint(x: sender.frame.midX, y: sender.frame.midY))
+            path.addLine(to: CGPoint(x: 0.0, y: self.view.frame.size.height))
+            path.close()
+
+            // HOORAY
+            let layer = CAShapeLayer()
+            layer.path = path.cgPath
+            layer.strokeColor = UIColor.red.cgColor
+            view.layer.addSublayer(layer)
+            
+         }
     }
     
     @objc func buttonNoteOff(sender:NoteButton) {
@@ -106,12 +126,14 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
             midi.sendEvent(AKMIDIEvent(noteOff: sender.noteNumber, velocity: 0, channel: 1))
             sender.osc1.stop(noteNumber: sender.noteNumber)
             sender.osc2.stop(noteNumber: sender.noteNumber)
+            sender.backgroundColor = UIColor(white: 0.0, alpha: 0.35)
+            sender.layer.borderColor = UIColor(white: 1.0, alpha: 0.75).cgColor
+
         }
     }
     
     
     // ** POST REQUEST CODE
-    
     @IBAction func sendPostRequest(_ sender: UIButton) {
         // Don't map twice, don't map if we have no image
         if (hasMapped! || !newMedia!) {
