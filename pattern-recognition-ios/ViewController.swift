@@ -51,12 +51,15 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         var osc2: AKOscillatorBank
         var filter2: AKLowPassFilter
         var delay2: AKDelay
+        
+        var lineLayer: CAShapeLayer
 
         
         required init(freq: Double = 0, noteNumber: UInt8 = 0, frame: CGRect) {
             self.freq = freq
             self.noteNumber = noteNumber
             self.clickable = false
+            self.lineLayer = CAShapeLayer.init()
             
             // Set up audio signal paths
             self.osc1 = AKOscillatorBank(waveform: AKTable(.square),
@@ -90,9 +93,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     
     // ** BUTTON CLICK FUNCTIONS
     @objc func buttonNoteOn(sender:NoteButton) {
-        print("Button touched ...")
         if (sender.clickable && hasMapped!) {
-            print(sender.freq, sender.noteNumber)
             midi.sendEvent(AKMIDIEvent(noteOn: sender.noteNumber, velocity: 90, channel: 1))
             sender.osc1.play(noteNumber: sender.noteNumber, velocity: 90, frequency: sender.freq)
             sender.osc2.play(noteNumber: sender.noteNumber, velocity: 90, frequency: sender.freq)
@@ -100,35 +101,35 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
             sender.backgroundColor = UIColor(white: 0.0, alpha: 0.75)
             sender.layer.borderColor = UIColor(white: 1.0, alpha: 1.0).cgColor
             
-            // oh thank fuck eh.
-            
-            
-            
-            
-            
             let path = UIBezierPath()
             path.move(to: CGPoint(x: sender.frame.midX, y: sender.frame.midY))
-            path.addLine(to: CGPoint(x: 0.0, y: self.view.frame.size.height))
+            self.buttonLocList.forEach { loc in
+                let temp = loc["location"] as! [String : Int]
+                let xLoc = temp["x"]!
+                let yLoc = temp["y"]!
+                path.addLine(to: CGPoint(x: xLoc, y: yLoc))
+                path.addLine(to: CGPoint(x: sender.frame.midX, y: sender.frame.midY))
+            }
             path.close()
 
-            // HOORAY
             let layer = CAShapeLayer()
             layer.path = path.cgPath
-            layer.strokeColor = UIColor.red.cgColor
+            layer.strokeColor = UIColor.white.cgColor
             view.layer.addSublayer(layer)
-            
+            sender.lineLayer = layer
          }
     }
     
     @objc func buttonNoteOff(sender:NoteButton) {
-        print("Button released ...")
         if (sender.clickable) {
             midi.sendEvent(AKMIDIEvent(noteOff: sender.noteNumber, velocity: 0, channel: 1))
             sender.osc1.stop(noteNumber: sender.noteNumber)
             sender.osc2.stop(noteNumber: sender.noteNumber)
+            
             sender.backgroundColor = UIColor(white: 0.0, alpha: 0.35)
             sender.layer.borderColor = UIColor(white: 1.0, alpha: 0.75).cgColor
-
+            
+            sender.lineLayer.removeFromSuperlayer()
         }
     }
     
@@ -238,8 +239,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         let l = ["x": xInt, "y": yInt] as [String: Int]
         let location = ["location": l] as [String: Any]
         buttonLocList.append(location)
-        print(buttonLocList)
-        
+
         // Store the button by location so we can assign to it later on
         let key = "\(xInt)---\(yInt)"
         buttonRefMap[key] = button
