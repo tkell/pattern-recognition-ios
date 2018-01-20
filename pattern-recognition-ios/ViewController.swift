@@ -52,14 +52,14 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         var filter2: AKLowPassFilter
         var delay2: AKDelay
         
-        var lineLayer: CAShapeLayer
+        var lineLayers: Array<CAShapeLayer>
 
         
         required init(freq: Double = 0, noteNumber: UInt8 = 0, frame: CGRect) {
             self.freq = freq
             self.noteNumber = noteNumber
             self.clickable = false
-            self.lineLayer = CAShapeLayer.init()
+            self.lineLayers = []
             
             // Set up audio signal paths
             self.osc1 = AKOscillatorBank(waveform: AKTable(.square),
@@ -101,22 +101,33 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
             sender.backgroundColor = UIColor(white: 0.0, alpha: 0.75)
             sender.layer.borderColor = UIColor(white: 1.0, alpha: 1.0).cgColor
             
-            let path = UIBezierPath()
-            path.move(to: CGPoint(x: sender.frame.midX, y: sender.frame.midY))
+
             self.buttonLocList.forEach { loc in
+                let path = UIBezierPath()
+                path.move(to: CGPoint(x: sender.frame.midX, y: sender.frame.midY))
                 let temp = loc["location"] as! [String : Int]
                 let xLoc = temp["x"]!
                 let yLoc = temp["y"]!
                 path.addLine(to: CGPoint(x: xLoc, y: yLoc))
-                path.addLine(to: CGPoint(x: sender.frame.midX, y: sender.frame.midY))
-            }
-            path.close()
+                path.close()
+                let layer = CAShapeLayer()
+                layer.strokeColor = UIColor.white.cgColor
+                sender.lineLayers.append(layer)
+                
+                view.layer.addSublayer(layer)
+                layer.path = path.cgPath
+                
+                let animation = CABasicAnimation(keyPath: "strokeEnd")
+                /* set up animation */
+                animation.fromValue = 0.0
+                animation.toValue = 1.0
+                animation.duration = 0.225
+                layer.add(animation, forKey: "drawLineAnimation")
 
-            let layer = CAShapeLayer()
-            layer.path = path.cgPath
-            layer.strokeColor = UIColor.white.cgColor
-            view.layer.addSublayer(layer)
-            sender.lineLayer = layer
+            }
+            
+
+
          }
     }
     
@@ -129,7 +140,10 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
             sender.backgroundColor = UIColor(white: 0.0, alpha: 0.35)
             sender.layer.borderColor = UIColor(white: 1.0, alpha: 0.75).cgColor
             
-            sender.lineLayer.removeFromSuperlayer()
+            sender.lineLayers.forEach { layer in
+                layer.removeFromSuperlayer()
+            }
+
         }
     }
     
