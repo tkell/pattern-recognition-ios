@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		43390043201535AE00BD3AB0 /* AudioHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43390042201535AE00BD3AB0 /* AudioHelpers.swift */; };
+		4339004520153D4A00BD3AB0 /* AnimationHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4339004420153D4A00BD3AB0 /* AnimationHelpers.swift */; };
+		4339004720153DE900BD3AB0 /* NoteButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4339004620153DE900BD3AB0 /* NoteButton.swift */; };
+		43390049201542EA00BD3AB0 /* ButtonHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43390048201542EA00BD3AB0 /* ButtonHelpers.swift */; };
 		43D3E4AC1FB68C6C00DFF891 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43D3E4AB1FB68C6C00DFF891 /* AppDelegate.swift */; };
 		43D3E4AE1FB68C6C00DFF891 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43D3E4AD1FB68C6C00DFF891 /* ViewController.swift */; };
 		43D3E4B11FB68C6C00DFF891 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 43D3E4AF1FB68C6C00DFF891 /* Main.storyboard */; };
@@ -30,6 +34,10 @@
 /* Begin PBXFileReference section */
 		071623FE8CA3A94FF43DEF1A /* Pods-pattern-recognition-ios.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-pattern-recognition-ios.debug.xcconfig"; path = "Pods/Target Support Files/Pods-pattern-recognition-ios/Pods-pattern-recognition-ios.debug.xcconfig"; sourceTree = "<group>"; };
 		2E04257D98E5A39B1AB7B735 /* Pods-pattern-recognition-iosTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-pattern-recognition-iosTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-pattern-recognition-iosTests/Pods-pattern-recognition-iosTests.debug.xcconfig"; sourceTree = "<group>"; };
+		43390042201535AE00BD3AB0 /* AudioHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioHelpers.swift; sourceTree = "<group>"; };
+		4339004420153D4A00BD3AB0 /* AnimationHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimationHelpers.swift; sourceTree = "<group>"; };
+		4339004620153DE900BD3AB0 /* NoteButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteButton.swift; sourceTree = "<group>"; };
+		43390048201542EA00BD3AB0 /* ButtonHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonHelpers.swift; sourceTree = "<group>"; };
 		43D3E4A81FB68C6C00DFF891 /* pattern-recognition-ios.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "pattern-recognition-ios.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		43D3E4AB1FB68C6C00DFF891 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		43D3E4AD1FB68C6C00DFF891 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -91,6 +99,10 @@
 			children = (
 				43D3E4AB1FB68C6C00DFF891 /* AppDelegate.swift */,
 				43D3E4AD1FB68C6C00DFF891 /* ViewController.swift */,
+				4339004620153DE900BD3AB0 /* NoteButton.swift */,
+				43390048201542EA00BD3AB0 /* ButtonHelpers.swift */,
+				4339004420153D4A00BD3AB0 /* AnimationHelpers.swift */,
+				43390042201535AE00BD3AB0 /* AudioHelpers.swift */,
 				43D3E4AF1FB68C6C00DFF891 /* Main.storyboard */,
 				43D3E4B21FB68C6C00DFF891 /* Assets.xcassets */,
 				43D3E4B41FB68C6C00DFF891 /* LaunchScreen.storyboard */,
@@ -341,8 +353,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4339004520153D4A00BD3AB0 /* AnimationHelpers.swift in Sources */,
+				43390049201542EA00BD3AB0 /* ButtonHelpers.swift in Sources */,
 				43D3E4AE1FB68C6C00DFF891 /* ViewController.swift in Sources */,
 				43D3E4AC1FB68C6C00DFF891 /* AppDelegate.swift in Sources */,
+				43390043201535AE00BD3AB0 /* AudioHelpers.swift in Sources */,
+				4339004720153DE900BD3AB0 /* NoteButton.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

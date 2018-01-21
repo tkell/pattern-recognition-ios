@@ -10,15 +10,14 @@ import UIKit
 import MobileCoreServices
 import AudioKit
 
-
 class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     @IBOutlet weak var imageView: UIImageView!
     var newMedia: Bool?
     var hasMapped: Bool?
     var buttonLocList: Array<[String: Any]> = []
     var buttonRefMap: [String: UIButton] = [:] // Tacky stringmap with 'x---y', ah well.
-    // var context: CGContext? = nil
     var midi = AKMIDI()
+    
  
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -36,114 +35,20 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
-    
-    // ** CUSTOM BUTTON CLASS
-    class NoteButton: UIButton {
-        var freq: Double
-        var noteNumber: MIDINoteNumber
-        var clickable: Bool
-
-        var osc1: AKOscillatorBank
-        var filter1: AKLowPassFilter
-        var delay1: AKDelay
-        var osc2: AKOscillatorBank
-        var filter2: AKLowPassFilter
-        var delay2: AKDelay
-        
-        var lineLayers: Array<CAShapeLayer>
-
-        
-        required init(freq: Double = 0, noteNumber: UInt8 = 0, frame: CGRect) {
-            self.freq = freq
-            self.noteNumber = noteNumber
-            self.clickable = false
-            self.lineLayers = []
-            
-            // Set up audio signal paths
-            self.osc1 = AKOscillatorBank(waveform: AKTable(.square),
-                                        attackDuration: 0.125,
-                                        decayDuration: 0.25,
-                                        sustainLevel: 0.2,
-                                        releaseDuration: 0.1
-            )
-            self.filter1 = AKLowPassFilter(osc1, cutoffFrequency: 6500.0, resonance: 0.1)
-            self.delay1 = AKDelay(filter1, time: 0.166, feedback: 0.35, dryWetMix: 0.1)
-
-            self.osc2 = AKOscillatorBank(waveform: AKTable(.triangle),
-                                        attackDuration: 0.1,
-                                        decayDuration: 0.20,
-                                        sustainLevel: 0.25,
-                                        releaseDuration: 0.2
-            )
-            self.filter2 = AKLowPassFilter(osc2, cutoffFrequency: 8000.0, resonance: 0.1)
-            self.delay2 = AKDelay(filter1, time: 0.15, feedback: 0.4, dryWetMix: 0.2)
-
-            // Assign to output
-            AudioKit.output = AKMixer(self.delay1, self.delay2)
-            super.init(frame: frame)
-        }
-        required init?(coder aDecoder: NSCoder) {
-            fatalError("init(coder:) has not been implemented")
-        }
-    }
-    
-
     
     // ** BUTTON CLICK FUNCTIONS
-    @objc func buttonNoteOn(sender:NoteButton) {
+    @objc func buttonNoteOn(sender: NoteButton) {
         if (sender.clickable && hasMapped!) {
-            midi.sendEvent(AKMIDIEvent(noteOn: sender.noteNumber, velocity: 90, channel: 1))
-            sender.osc1.play(noteNumber: sender.noteNumber, velocity: 90, frequency: sender.freq)
-            sender.osc2.play(noteNumber: sender.noteNumber, velocity: 90, frequency: sender.freq)
-
-            sender.backgroundColor = UIColor(white: 0.0, alpha: 0.75)
-            sender.layer.borderColor = UIColor(white: 1.0, alpha: 1.0).cgColor
-            
-
-            self.buttonLocList.forEach { loc in
-                let path = UIBezierPath()
-                path.move(to: CGPoint(x: sender.frame.midX, y: sender.frame.midY))
-                let temp = loc["location"] as! [String : Int]
-                let xLoc = temp["x"]!
-                let yLoc = temp["y"]!
-                path.addLine(to: CGPoint(x: xLoc, y: yLoc))
-                path.close()
-                let layer = CAShapeLayer()
-                layer.strokeColor = UIColor.white.cgColor
-                sender.lineLayers.append(layer)
-                
-                view.layer.addSublayer(layer)
-                layer.path = path.cgPath
-                
-                let animation = CABasicAnimation(keyPath: "strokeEnd")
-                /* set up animation */
-                animation.fromValue = 0.0
-                animation.toValue = 1.0
-                animation.duration = 0.225
-                layer.add(animation, forKey: "drawLineAnimation")
-
-            }
-            
-
-
+            playNote(midi: midi, oscs: [sender.osc1, sender.osc2], note: sender.noteNumber, vel: 90, freq: sender.freq)
+            doButtonTouchAnimation(b: sender, otherButtons: self.buttonLocList, view: view)
          }
     }
     
     @objc func buttonNoteOff(sender:NoteButton) {
         if (sender.clickable) {
-            midi.sendEvent(AKMIDIEvent(noteOff: sender.noteNumber, velocity: 0, channel: 1))
-            sender.osc1.stop(noteNumber: sender.noteNumber)
-            sender.osc2.stop(noteNumber: sender.noteNumber)
-            
-            sender.backgroundColor = UIColor(white: 0.0, alpha: 0.35)
-            sender.layer.borderColor = UIColor(white: 1.0, alpha: 0.75).cgColor
-            
-            sender.lineLayers.forEach { layer in
-                layer.removeFromSuperlayer()
-            }
-
+            stopNote(midi: midi, oscs: [sender.osc1, sender.osc2], note: sender.noteNumber)
+            finishButtonTouchAnimation(b: sender)
         }
     }
     
@@ -154,19 +59,6 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         if (hasMapped! || !newMedia!) {
             return
         }
-        
-        // Test data!
-        /*
-        let l1 = ["x": 450, "y": 100] as [String: Int]
-        let l2 = ["x": 450, "y": 210] as [String: Int]
-        let l3 = ["x": 450, "y": 320] as [String: Int]
-
-        let location1 = ["location": l1] as [String: Any]
-        let location2 = ["location": l2] as [String: Any]
-        let location3 = ["location": l3] as [String: Any]
-        let locationArray = [location1, location2, location3]
-        let testDict = ["adventure": 0, "buttonData": locationArray] as [String: Any]
-        */
         
         // Create request
         var request = URLRequest(url: URL(string: "http://tide-pool.link/pattern-rec/analysis")!)
@@ -219,37 +111,18 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     @objc func imageTapped(tapGestureRecognizer: UITapGestureRecognizer) {
         _ = tapGestureRecognizer.view as! UIImageView
         // If we've done a mapping, or if we have not taken a picture, get out
-        // Don't forget to add back `|| !newMedia!` once we are off the sim!
         if (hasMapped! || !newMedia!) {
             return
         }
         
         let touchPoint = tapGestureRecognizer.location(in: self.view)
-        
-        // Create the button
-        // Take one-tenth of the average of the height and width to be the size of each button
         let buttonSize = (self.view.frame.size.height + self.view.frame.size.width / 2) / 10
-        let buttonFrame = CGRect(x: touchPoint.x - CGFloat(buttonSize / 2),
-                                 y: touchPoint.y - CGFloat(buttonSize / 2),
-                                 width: CGFloat(buttonSize),
-                                 height: CGFloat(buttonSize))
-        let button = NoteButton(freq: 0, frame: buttonFrame)
-        button.layer.cornerRadius = 0.5 * button.bounds.size.width
-        button.clipsToBounds = true
-        button.backgroundColor = UIColor(white: 0.0, alpha: 0.35)
-        button.layer.borderWidth = 5
-        button.layer.borderColor = UIColor(white: 1.0, alpha: 0.75).cgColor
-        
-        // Add button events
-        button.addTarget(self, action:#selector(self.buttonNoteOn), for: .touchDown)
-        button.addTarget(self, action:#selector(self.buttonNoteOff), for: .touchUpInside)
-        button.addTarget(self, action:#selector(self.buttonNoteOff), for: .touchUpOutside)
+        let button = makeButton(touchPoint: touchPoint, buttonSize: buttonSize, viewController: self)
         view.addSubview(button)
         
+        // Set up the JSON data
         let xInt = Int(floor(touchPoint.x))
         let yInt = Int(floor(touchPoint.y))
-        
-        // Set up the JSON data
         let l = ["x": xInt, "y": yInt] as [String: Int]
         let location = ["location": l] as [String: Any]
         buttonLocList.append(location)
