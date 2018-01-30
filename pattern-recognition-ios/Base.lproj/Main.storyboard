@@ -42,9 +42,8 @@
                                     <action selector="sendPostRequest:" destination="BYZ-38-t0r" eventType="touchUpInside" id="dEx-FZ-ixd"/>
                                 </connections>
                             </button>
-                            <slider opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" minValue="0.0" maxValue="4" continuous="NO" translatesAutoresizingMaskIntoConstraints="NO" id="i5m-aH-AmM">
+                            <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" minValue="0.0" maxValue="4" continuous="NO" translatesAutoresizingMaskIntoConstraints="NO" id="i5m-aH-AmM">
                                 <rect key="frame" x="128" y="617" width="118" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <connections>
                                     <action selector="sliderValueChanged:" destination="BYZ-38-t0r" eventType="valueChanged" id="OvS-0Z-H92"/>
                                 </connections>
@@ -52,15 +51,19 @@
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="i5m-aH-AmM" secondAttribute="bottom" constant="21" id="3Wu-aF-lJ0"/>
                             <constraint firstItem="W1V-PG-yod" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="As2-KC-4vG"/>
                             <constraint firstAttribute="bottom" secondItem="W1V-PG-yod" secondAttribute="bottom" constant="58" id="E1h-MM-jvC"/>
                             <constraint firstItem="W1V-PG-yod" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="Ecl-fI-XU9"/>
                             <constraint firstAttribute="trailing" secondItem="W1V-PG-yod" secondAttribute="trailing" id="NTU-Ey-V3S"/>
                             <constraint firstItem="W1V-PG-yod" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="NTs-rn-Cub"/>
+                            <constraint firstItem="i5m-aH-AmM" firstAttribute="leading" secondItem="ZR2-49-2XF" secondAttribute="trailing" constant="22" id="Q0Y-sn-D7P"/>
                             <constraint firstItem="ZR2-49-2XF" firstAttribute="top" secondItem="W1V-PG-yod" secondAttribute="bottom" constant="8" symbolic="YES" id="Rf9-LN-Yjf"/>
                             <constraint firstItem="ufW-7k-tjA" firstAttribute="top" secondItem="W1V-PG-yod" secondAttribute="bottom" constant="8" id="V7q-wW-gXv"/>
                             <constraint firstAttribute="trailing" secondItem="ufW-7k-tjA" secondAttribute="trailing" constant="10" id="ci0-yJ-cf4"/>
                             <constraint firstItem="ZR2-49-2XF" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="10" id="dOR-V7-AzJ"/>
+                            <constraint firstItem="i5m-aH-AmM" firstAttribute="centerX" secondItem="W1V-PG-yod" secondAttribute="centerX" id="nNU-Ql-8ed"/>
+                            <constraint firstItem="i5m-aH-AmM" firstAttribute="top" secondItem="ZR2-49-2XF" secondAttribute="top" id="psp-bb-Nq5"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
