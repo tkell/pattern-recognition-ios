@@ -9,7 +9,6 @@
 import Foundation
 import UIKit
 
-
 func doButtonTouchAnimation(b: NoteButton, otherButtons: Array<[String: Any]>, view: UIView) -> Void {
     b.backgroundColor = UIColor(white: 0.0, alpha: 0.75)
     b.layer.borderColor = UIColor(white: 1.0, alpha: 1.0).cgColor

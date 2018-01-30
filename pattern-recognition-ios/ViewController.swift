@@ -61,47 +61,22 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         }
         
         // Create request
-        var request = URLRequest(url: URL(string: "http://tide-pool.link/pattern-rec/analysis")!)
-        request.httpMethod = "POST"
-        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-        let jsonBody = ["adventure": 0, "buttonData": buttonLocList] as [String: Any]
-        let jsonData = try? JSONSerialization.data(withJSONObject: jsonBody, options: .prettyPrinted)
-        request.httpBody = jsonData
+        let request = makeRequest(buttons: buttonLocList)
 
         // Send & deal with the response
         let task = URLSession.shared.dataTask(with: request) { data, response, error in
             guard let data = data, error == nil else {
-                // check for fundamental networking error
                 print("Network error!")
                 return
             }
             if let httpStatus = response as? HTTPURLResponse, httpStatus.statusCode != 200 {
-                // check for http errors
                 print("statusCode should be 200, but is \(httpStatus.statusCode)")
             }
-            do {
-                let json = try JSONSerialization.jsonObject(with: data) as? [String: Any]
-                
-                AudioKit.start()
-                self.midi.openOutput()
-
-                self.hasMapped = true
-                for b in json!["mapping"] as! [AnyObject] {
-                    let loc = b["location"]! as! [String: Int]
-                    let xVal = loc["x"]!
-                    let yVal = loc["y"]!
-                    let key = "\(xVal)---\(yVal)"
-                    let theButton = self.buttonRefMap[key] as! NoteButton
-                    let f = b["noteFreq"] as! Double
-                    let m = b["noteMIDI"] as! UInt8
-                    theButton.freq = f
-                    theButton.noteNumber = m
-                    theButton.clickable = true
-                }
-                print("we mapped things!")
-            } catch {
-                print("Error deserializing JSON: \(error)")
-            }
+            mapResponse(data: data, buttonMap: self.buttonRefMap)
+            AudioKit.start()
+            self.midi.openOutput()
+            self.hasMapped = true
+            print("we mapped things!")
         }
         task.resume()
     }

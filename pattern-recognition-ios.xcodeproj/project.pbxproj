@@ -11,6 +11,7 @@
 		4339004520153D4A00BD3AB0 /* AnimationHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4339004420153D4A00BD3AB0 /* AnimationHelpers.swift */; };
 		4339004720153DE900BD3AB0 /* NoteButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4339004620153DE900BD3AB0 /* NoteButton.swift */; };
 		43390049201542EA00BD3AB0 /* ButtonHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43390048201542EA00BD3AB0 /* ButtonHelpers.swift */; };
+		438EB849201FFEA300E0C06B /* PostHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 438EB848201FFEA300E0C06B /* PostHelpers.swift */; };
 		43D3E4AC1FB68C6C00DFF891 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43D3E4AB1FB68C6C00DFF891 /* AppDelegate.swift */; };
 		43D3E4AE1FB68C6C00DFF891 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43D3E4AD1FB68C6C00DFF891 /* ViewController.swift */; };
 		43D3E4B11FB68C6C00DFF891 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 43D3E4AF1FB68C6C00DFF891 /* Main.storyboard */; };
@@ -38,6 +39,7 @@
 		4339004420153D4A00BD3AB0 /* AnimationHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimationHelpers.swift; sourceTree = "<group>"; };
 		4339004620153DE900BD3AB0 /* NoteButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteButton.swift; sourceTree = "<group>"; };
 		43390048201542EA00BD3AB0 /* ButtonHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonHelpers.swift; sourceTree = "<group>"; };
+		438EB848201FFEA300E0C06B /* PostHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostHelpers.swift; sourceTree = "<group>"; };
 		43D3E4A81FB68C6C00DFF891 /* pattern-recognition-ios.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "pattern-recognition-ios.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		43D3E4AB1FB68C6C00DFF891 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		43D3E4AD1FB68C6C00DFF891 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -107,6 +109,7 @@
 				43D3E4B21FB68C6C00DFF891 /* Assets.xcassets */,
 				43D3E4B41FB68C6C00DFF891 /* LaunchScreen.storyboard */,
 				43D3E4B71FB68C6C00DFF891 /* Info.plist */,
+				438EB848201FFEA300E0C06B /* PostHelpers.swift */,
 			);
 			path = "pattern-recognition-ios";
 			sourceTree = "<group>";
@@ -358,6 +361,7 @@
 				43D3E4AE1FB68C6C00DFF891 /* ViewController.swift in Sources */,
 				43D3E4AC1FB68C6C00DFF891 /* AppDelegate.swift in Sources */,
 				43390043201535AE00BD3AB0 /* AudioHelpers.swift in Sources */,
+				438EB849201FFEA300E0C06B /* PostHelpers.swift in Sources */,
 				4339004720153DE900BD3AB0 /* NoteButton.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
