@@ -12,11 +12,14 @@ import AudioKit
 
 class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     @IBOutlet weak var imageView: UIImageView!
+    @IBOutlet weak var adventureSlider: UISlider!
+
     var newMedia: Bool?
     var hasMapped: Bool?
     var buttonLocList: Array<[String: Any]> = []
     var buttonRefMap: [String: UIButton] = [:] // Tacky stringmap with 'x---y', ah well.
     var midi = AKMIDI()
+    var adventure: Int = 0
     
  
     override func viewDidLoad() {
@@ -36,6 +39,14 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
+
+    // ** SLIDER FUNCTIONS
+    @IBAction func sliderValueChanged(_ sender: UISlider) {
+        sender.setValue(sender.value.rounded(.down), animated: true)
+        self.adventure = Int(sender.value.rounded(.down))
+        print(adventure)
+    }
+
     
     // ** BUTTON CLICK FUNCTIONS
     @objc func buttonNoteOn(sender: NoteButton) {
@@ -61,7 +72,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         }
         
         // Create request
-        let request = makeRequest(buttons: buttonLocList)
+        let request = makeRequest(buttons: buttonLocList, adventure: self.adventure)
 
         // Send & deal with the response
         let task = URLSession.shared.dataTask(with: request) { data, response, error in
