@@ -17,7 +17,6 @@ class NoteButton: UIButton {
     var osc1: AKOscillatorBank
     var osc2: AKOscillatorBank
     
-    
     var lineLayers: Array<CAShapeLayer>
     
     required init(freq: Double = 0, noteNumber: UInt8 = 0, frame: CGRect) {

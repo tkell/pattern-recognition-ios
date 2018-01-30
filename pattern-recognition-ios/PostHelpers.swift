@@ -28,9 +28,13 @@ func mapResponse(data: Data, buttonMap: [String : UIButton]) -> Void {
             let key = "\(xVal)---\(yVal)"
             let theButton = buttonMap[key] as! NoteButton
             let f = b["noteFreq"] as! Double
-            let m = b["noteMIDI"] as! UInt8
             theButton.freq = f
-            theButton.noteNumber = m
+            // Sometimes we don't have a midi number
+            theButton.noteNumber = 100
+            let m = b["noteMIDI"]
+            if m! != nil {
+                theButton.noteNumber = m as! UInt8
+            }
             theButton.clickable = true
         }
     } catch {
