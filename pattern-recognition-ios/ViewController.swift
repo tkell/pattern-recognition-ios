@@ -50,6 +50,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     @IBAction func sliderValueChanged(_ sender: UISlider) {
         sender.setValue(sender.value.rounded(.down), animated: true)
         self.adventure = Int(sender.value.rounded(.down))
+        print(adventure)
     }
 
     
@@ -72,7 +73,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     // ** POST REQUEST CODE
     @IBAction func sendPostRequest(_ sender: UIButton) {
         // Don't map twice, don't map if we have no image
-        if self.state != "photoTaken" {
+        if self.state != "photoTaken" && self.state != "mapDone" {
             return
         }
         
