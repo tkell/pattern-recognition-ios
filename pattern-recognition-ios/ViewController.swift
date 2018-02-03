@@ -11,7 +11,6 @@ import MobileCoreServices
 import AudioKit
 
 class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
-
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var mainImageButton: UIButton!
     @IBOutlet weak var bottomImageButton: UIButton!
@@ -20,28 +19,28 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     @IBOutlet weak var adventureSliderLeftLabel: UILabel!
     @IBOutlet weak var adventureSliderRightLabel: UILabel!
     @IBOutlet weak var bottomRedoButton: UIButton!
- 
+    @IBOutlet weak var mainPostButton: UIButton!
+    @IBOutlet weak var mainTouchLabel: UILabel!
+
     var state: String = "splash"
     var buttonLocList: Array<[String: Any]> = []
     var buttonRefMap: [String: UIButton] = [:] // Tacky stringmap with 'x---y', ah well.
     var midi = AKMIDI()
     var adventure: Int = 0
     
-
-    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         // Hide the inputs
-        if state == "splash" {
-            self.bottomImageButton.isHidden = true
-            self.adventureSlider.isHidden = true
-            self.bottomPostButton.isHidden = true
-            self.adventureSliderLeftLabel.isHidden = true
-            self.adventureSliderRightLabel.isHidden = true
-            self.bottomRedoButton.isHidden = true
-        }
-        
+        self.bottomImageButton.isHidden = true
+        self.adventureSlider.isHidden = true
+        self.bottomPostButton.isHidden = true
+        self.adventureSliderLeftLabel.isHidden = true
+        self.adventureSliderRightLabel.isHidden = true
+        self.bottomRedoButton.isHidden = true
+        self.mainPostButton.isHidden = true
+        self.mainTouchLabel.isHidden = true
+
         // Allow touches on the image
         let tapGestureRecognizer = UITapGestureRecognizer(target: self,
                                                           action: #selector(imageTapped(tapGestureRecognizer:)))
@@ -94,6 +93,14 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
             return
         }
         
+        self.bottomImageButton.isHidden = false
+        self.adventureSlider.isHidden = false
+        self.bottomPostButton.isHidden = false
+        self.adventureSliderLeftLabel.isHidden = false
+        self.adventureSliderRightLabel.isHidden = false
+        self.bottomRedoButton.isHidden = false
+        self.mainPostButton.isHidden = true
+
         // Create request
         let request = makeRequest(buttons: buttonLocList, adventure: self.adventure)
 
@@ -156,11 +163,17 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
             self.present(imagePicker, animated: true, completion: nil)
         }
     }
+    // Function to fade out the label
+    func doFadeOut() {
+        UIView.animate(withDuration: 5, animations: {
+            self.mainTouchLabel.alpha = 0.0
+        })
+    }
     
     // Load the image.
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
         let mediaType = info[UIImagePickerControllerMediaType] as! NSString
-        self.dismiss(animated: true, completion: nil)
+        self.dismiss(animated: true, completion: doFadeOut)
         
         if mediaType.isEqual(to: kUTTypeImage as String) {
             let image = info[UIImagePickerControllerOriginalImage] as! UIImage
@@ -170,16 +183,15 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
             _ = buttonRefMap.values.map {b in b.removeFromSuperview()}
             buttonRefMap = [:]
             buttonLocList = []
-            state = "photoTaken"
-            if state == "photoTaken" {
+            if self.state == "mapDone" {
+                self.mainTouchLabel.alpha = 1.0
+                self.mainTouchLabel.isHidden = false
+            } else {
                 self.mainImageButton.isHidden = true
-                self.bottomImageButton.isHidden = false
-                self.adventureSlider.isHidden = false
-                self.bottomPostButton.isHidden = false
-                self.adventureSliderLeftLabel.isHidden = false
-                self.adventureSliderRightLabel.isHidden = false
-                self.bottomRedoButton.isHidden = false
+                self.mainPostButton.isHidden = false
+                self.mainTouchLabel.isHidden = false
             }
+            self.state = "photoTaken"
         }
     }
     
