@@ -11,12 +11,16 @@ import MobileCoreServices
 import AudioKit
 
 class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var mainImageButton: UIButton!
     @IBOutlet weak var bottomImageButton: UIButton!
     @IBOutlet weak var bottomPostButton: UIButton!
     @IBOutlet weak var adventureSlider: UISlider!
-
+    @IBOutlet weak var adventureSliderLeftLabel: UILabel!
+    @IBOutlet weak var adventureSliderRightLabel: UILabel!
+    @IBOutlet weak var bottomRedoButton: UIButton!
+ 
     var state: String = "splash"
     var buttonLocList: Array<[String: Any]> = []
     var buttonRefMap: [String: UIButton] = [:] // Tacky stringmap with 'x---y', ah well.
@@ -33,6 +37,9 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
             self.bottomImageButton.isHidden = true
             self.adventureSlider.isHidden = true
             self.bottomPostButton.isHidden = true
+            self.adventureSliderLeftLabel.isHidden = true
+            self.adventureSliderRightLabel.isHidden = true
+            self.bottomRedoButton.isHidden = true
         }
         
         // Allow touches on the image
@@ -69,11 +76,21 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         }
     }
     
+    // ** RESET BUTTONS CODE
+
+    @IBAction func clearButtons(_ sender: Any) {
+        print("clear the buttons")
+        _ = buttonRefMap.values.map {b in b.removeFromSuperview()}
+        buttonRefMap = [:]
+        buttonLocList = []
+        AudioKit.stop()
+        state = "photoTaken"
+    }
     
     // ** POST REQUEST CODE
     @IBAction func sendPostRequest(_ sender: UIButton) {
-        // Don't map twice, don't map if we have no image
-        if self.state != "photoTaken" && self.state != "mapDone" {
+        // Don't map twice unless we have an image, and have at least 3 buttons
+        if self.state != "photoTaken" && self.state != "mapDone"  || self.buttonLocList.count < 3 {
             return
         }
         
@@ -159,6 +176,9 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
                 self.bottomImageButton.isHidden = false
                 self.adventureSlider.isHidden = false
                 self.bottomPostButton.isHidden = false
+                self.adventureSliderLeftLabel.isHidden = false
+                self.adventureSliderRightLabel.isHidden = false
+                self.bottomRedoButton.isHidden = false
             }
         }
     }
