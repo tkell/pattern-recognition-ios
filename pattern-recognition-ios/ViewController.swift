@@ -12,22 +12,28 @@ import AudioKit
 
 class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     @IBOutlet weak var imageView: UIImageView!
+    @IBOutlet weak var mainImageButton: UIButton!
+    @IBOutlet weak var bottomImageButton: UIButton!
+    @IBOutlet weak var bottomPostButton: UIButton!
     @IBOutlet weak var adventureSlider: UISlider!
 
-    var newMedia: Bool?
-    var hasMapped: Bool?
+    var state: String = "splash"
     var buttonLocList: Array<[String: Any]> = []
     var buttonRefMap: [String: UIButton] = [:] // Tacky stringmap with 'x---y', ah well.
     var midi = AKMIDI()
     var adventure: Int = 0
     
- 
+
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // Awkward booleans for my own state
-        newMedia = false
-        hasMapped = false
+        // Hide the inputs
+        if state == "splash" {
+            self.bottomImageButton.isHidden = true
+            self.adventureSlider.isHidden = true
+            self.bottomPostButton.isHidden = true
+        }
         
         // Allow touches on the image
         let tapGestureRecognizer = UITapGestureRecognizer(target: self,
@@ -44,20 +50,19 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     @IBAction func sliderValueChanged(_ sender: UISlider) {
         sender.setValue(sender.value.rounded(.down), animated: true)
         self.adventure = Int(sender.value.rounded(.down))
-        print(adventure)
     }
 
     
     // ** BUTTON CLICK FUNCTIONS
     @objc func buttonNoteOn(sender: NoteButton) {
-        if (sender.clickable && hasMapped!) {
+        if sender.clickable && self.state == "mapDone" {
             playNote(midi: midi, oscs: [sender.osc1, sender.osc2], note: sender.noteNumber, vel: 90, freq: sender.freq)
             doButtonTouchAnimation(b: sender, otherButtons: self.buttonLocList, view: view)
          }
     }
     
     @objc func buttonNoteOff(sender:NoteButton) {
-        if (sender.clickable) {
+        if sender.clickable {
             stopNote(midi: midi, oscs: [sender.osc1, sender.osc2], note: sender.noteNumber)
             finishButtonTouchAnimation(b: sender)
         }
@@ -67,7 +72,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     // ** POST REQUEST CODE
     @IBAction func sendPostRequest(_ sender: UIButton) {
         // Don't map twice, don't map if we have no image
-        if (hasMapped! || !newMedia!) {
+        if self.state != "photoTaken" {
             return
         }
         
@@ -86,7 +91,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
             mapResponse(data: data, buttonMap: self.buttonRefMap)
             AudioKit.start()
             self.midi.openOutput()
-            self.hasMapped = true
+            self.state = "mapDone"
             print("we mapped things!")
         }
         task.resume()
@@ -97,7 +102,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     @objc func imageTapped(tapGestureRecognizer: UITapGestureRecognizer) {
         _ = tapGestureRecognizer.view as! UIImageView
         // If we've done a mapping, or if we have not taken a picture, get out
-        if (hasMapped! || !newMedia!) {
+        if self.state != "photoTaken" {
             return
         }
         
@@ -143,12 +148,17 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
             let image = info[UIImagePickerControllerOriginalImage] as! UIImage
             imageView.image = image
             
-            // Remove old buttons, reset state booleans
+            // Remove old buttons, update state
             _ = buttonRefMap.values.map {b in b.removeFromSuperview()}
             buttonRefMap = [:]
             buttonLocList = []
-            hasMapped = false
-            newMedia = true
+            state = "photoTaken"
+            if state == "photoTaken" {
+                self.mainImageButton.isHidden = true
+                self.bottomImageButton.isHidden = false
+                self.adventureSlider.isHidden = false
+                self.bottomPostButton.isHidden = false
+            }
         }
     }
     
