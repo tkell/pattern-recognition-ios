@@ -27,17 +27,21 @@
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="ZR2-49-2XF" secondAttribute="height" multiplier="49:15" id="Uw5-Na-tZ4"/>
                                 </constraints>
-                                <state key="normal" title="Take A Picture"/>
+                                <state key="normal" title="Make Image">
+                                    <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
                                 <connections>
                                     <action selector="useCamera:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Uta-FK-Rml"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Zre-nc-qA8">
-                                <rect key="frame" x="139" y="289.5" width="98" height="30"/>
+                                <rect key="frame" x="133" y="287.5" width="110" height="34"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="Zre-nc-qA8" secondAttribute="height" multiplier="49:15" id="oSJ-xq-Osh"/>
                                 </constraints>
-                                <state key="normal" title="Take A Picture"/>
+                                <state key="normal" title="Image A Pattern">
+                                    <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
                                 <connections>
                                     <action selector="useCamera:" destination="BYZ-38-t0r" eventType="touchUpInside" id="RG0-bA-yYD"/>
                                 </connections>
@@ -47,20 +51,25 @@
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="ufW-7k-tjA" secondAttribute="height" multiplier="49:15" id="C1l-yN-fMI"/>
                                 </constraints>
-                                <state key="normal" title="Send a POST"/>
+                                <state key="normal" title="Make Map">
+                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
                                 <connections>
                                     <action selector="sendPostRequest:" destination="BYZ-38-t0r" eventType="touchUpInside" id="dEx-FZ-ixd"/>
                                 </connections>
                             </button>
                             <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" minValue="0.0" maxValue="4" continuous="NO" translatesAutoresizingMaskIntoConstraints="NO" id="i5m-aH-AmM">
                                 <rect key="frame" x="112" y="573" width="154" height="30"/>
+                                <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <connections>
                                     <action selector="sliderValueChanged:" destination="BYZ-38-t0r" eventType="valueChanged" id="OvS-0Z-H92"/>
                                 </connections>
                             </slider>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Haj-Gv-Ubl">
-                                <rect key="frame" x="141" y="617" width="93" height="30"/>
-                                <state key="normal" title="Redo Buttons"/>
+                                <rect key="frame" x="140" y="617" width="95" height="30"/>
+                                <state key="normal" title="Make Buttons">
+                                    <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
                                 <connections>
                                     <action selector="clearButtons:" destination="BYZ-38-t0r" eventType="touchUpInside" id="4dC-dv-lPu"/>
                                 </connections>
@@ -77,15 +86,17 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Touch To Create Buttons" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ON9-ua-4Vq">
-                                <rect key="frame" x="95" y="323" width="189" height="21"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Touch Pattern To Create Buttons" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ON9-ua-4Vq" colorLabel="IBBuiltInLabel-Gray">
+                                <rect key="frame" x="64.5" y="323" width="249" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Fiz-Df-mps">
-                                <rect key="frame" x="71" y="617" width="237" height="30"/>
-                                <state key="normal" title="Map The Buttons"/>
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Fiz-Df-mps">
+                                <rect key="frame" x="69" y="617" width="237" height="30"/>
+                                <state key="normal" title="Map The Pattern">
+                                    <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
+                                </state>
                                 <connections>
                                     <action selector="sendPostRequest:" destination="BYZ-38-t0r" eventType="touchUpInside" id="E9y-nd-WYb"/>
                                 </connections>
