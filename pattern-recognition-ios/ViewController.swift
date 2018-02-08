@@ -44,8 +44,13 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         // Allow touches on the image
         let tapGestureRecognizer = UITapGestureRecognizer(target: self,
                                                           action: #selector(imageTapped(tapGestureRecognizer:)))
+
         imageView.isUserInteractionEnabled = true
         imageView.addGestureRecognizer(tapGestureRecognizer)
+
+        // Create and wire up a fake oscillator to cache the creation of the AudioKit objects.
+        let fauxOsc = createOsc(shape: "square", a: 0.125, d: 0.25, s: 0.2, r: 0.1)
+        AudioKit.output = AKMixer(createAudioPath(osc: fauxOsc, f: 6500, res: 0.1, t: 0.166, fb: 0.35, mix: 0.1))
     }
 
     override func didReceiveMemoryWarning() {
@@ -130,9 +135,10 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         if self.state != "photoTaken" {
             return
         }
-        
+
         let touchPoint = tapGestureRecognizer.location(in: self.view)
         let buttonSize = (self.view.frame.size.height + self.view.frame.size.width / 2) / 10
+
         let button = makeButton(touchPoint: touchPoint, buttonSize: buttonSize, viewController: self)
         view.addSubview(button)
         
@@ -142,6 +148,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         let l = ["x": xInt, "y": yInt] as [String: Int]
         let location = ["location": l] as [String: Any]
         buttonLocList.append(location)
+
 
         // Store the button by location so we can assign to it later on
         let key = "\(xInt)---\(yInt)"
@@ -178,8 +185,8 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         if mediaType.isEqual(to: kUTTypeImage as String) {
             let image = info[UIImagePickerControllerOriginalImage] as! UIImage
             imageView.image = image
-            
-            // Remove old buttons, update state
+
+            // Remove any old buttons, update state
             _ = buttonRefMap.values.map {b in b.removeFromSuperview()}
             buttonRefMap = [:]
             buttonLocList = []
