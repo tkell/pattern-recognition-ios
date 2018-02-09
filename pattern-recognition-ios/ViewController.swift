@@ -68,6 +68,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     // ** BUTTON CLICK FUNCTIONS
     @objc func buttonNoteOn(sender: NoteButton) {
         if sender.clickable && self.state == "mapDone" {
+            
             playNote(midi: midi, oscs: [sender.osc1, sender.osc2], note: sender.noteNumber, vel: 90, freq: sender.freq)
             doButtonTouchAnimation(b: sender, otherButtons: self.buttonLocList, view: view)
          }
@@ -105,6 +106,43 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         self.adventureSliderRightLabel.isHidden = false
         self.bottomRedoButton.isHidden = false
         self.mainPostButton.isHidden = true
+        
+        
+        // Looks ok, but thrashes with more than ~10 buttons!
+        buttonLocList.forEach { b1 in
+            let temp = b1["location"] as! [String : Int]
+            let xLoc1 = temp["x"]!
+            let yLoc1 = temp["y"]!
+            buttonLocList.forEach { b2 in
+                let path = UIBezierPath()
+                path.move(to: CGPoint(x: xLoc1, y: yLoc1))
+                let temp = b2["location"] as! [String : Int]
+                let xLoc2 = temp["x"]!
+                let yLoc2 = temp["y"]!
+                path.addLine(to: CGPoint(x: xLoc2, y: yLoc2))
+                
+                path.close()
+                
+                let layer = CAShapeLayer()
+                layer.strokeColor = UIColor.white.cgColor
+                view.layer.addSublayer(layer)
+                layer.path = path.cgPath
+                
+                let animation = CABasicAnimation(keyPath: "strokeEnd")
+                /* set up animation */
+                animation.fromValue = 0.0
+                animation.toValue = 1.0
+                animation.duration = (drand48() * 3.5) + 0.5
+                layer.add(animation, forKey: "drawLineAnimation")
+                
+                let fadeAnimation = CABasicAnimation(keyPath: "opacity")
+                fadeAnimation.fromValue = 1.0
+                fadeAnimation.toValue = 0.0
+                fadeAnimation.duration = 3.5
+                layer.add(fadeAnimation, forKey: "opacity")
+                layer.opacity = 0.0
+            }
+        }
 
         // Create request
         let request = makeRequest(buttons: buttonLocList, adventure: self.adventure)
