@@ -24,7 +24,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
 
     var state: String = "splash"
     var buttonLocList: Array<[String: Any]> = []
-    var buttonRefMap: [String: UIButton] = [:] // Tacky stringmap with 'x---y', ah well.
+    var buttonRefMap: [String: NoteButton] = [:] // Tacky stringmap with 'x---y', ah well.
     var midi = AKMIDI()
     var adventure: Int = 0
     
@@ -68,7 +68,6 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     // ** BUTTON CLICK FUNCTIONS
     @objc func buttonNoteOn(sender: NoteButton) {
         if sender.clickable && self.state == "mapDone" {
-            
             playNote(midi: midi, oscs: [sender.osc1, sender.osc2], note: sender.noteNumber, vel: 90, freq: sender.freq)
             doButtonTouchAnimation(b: sender, otherButtons: self.buttonLocList, view: view)
          }
@@ -83,9 +82,21 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     
     // ** RESET BUTTONS CODE
 
+    // OK, so the memory heirarchy claims that my oscs are not getting garbage collected.
+    // A complex workaround is to pick some number of Oscs (24?), build them at start, and assign them at map to each NoteButton?
+    // yeah, start with 24 - you'd need an array, with each element exposing both oscillators and the mixer out
+    // then, in the map, you assign the oscs to the NoteButton's osc, and assign the mixer out to AudioKit.output
+    // for teardown, you remove the buttons and detach the mixer outs.
+    
     @IBAction func clearButtons(_ sender: Any) {
-        print("clear the buttons")
-        _ = buttonRefMap.values.map {b in b.removeFromSuperview()}
+        print("clear button, stop audio")
+        _ = buttonRefMap.values.map {b in
+            b.audioOut.detach()
+            b.audioOut.stop()
+            b.osc1.detach()
+            b.osc2.detach()
+            b.removeFromSuperview()
+        }
         buttonRefMap = [:]
         buttonLocList = []
         AudioKit.stop()
@@ -110,6 +121,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         
         // Looks ok, but thrashes with more than ~10 buttons!
         buttonLocList.forEach { b1 in
+            /*
             let temp = b1["location"] as! [String : Int]
             let xLoc1 = temp["x"]!
             let yLoc1 = temp["y"]!
@@ -142,6 +154,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
                 layer.add(fadeAnimation, forKey: "opacity")
                 layer.opacity = 0.0
             }
+            */
         }
 
         // Create request

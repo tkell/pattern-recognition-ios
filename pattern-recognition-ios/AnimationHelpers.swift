@@ -10,9 +10,11 @@ import Foundation
 import UIKit
 
 func doButtonTouchAnimation(b: NoteButton, otherButtons: Array<[String: Any]>, view: UIView) -> Void {
+    
     b.backgroundColor = UIColor(white: 0.0, alpha: 0.75)
     b.layer.borderColor = UIColor(white: 1.0, alpha: 1.0).cgColor
     otherButtons.forEach { loc in
+        /*
         let path = UIBezierPath()
         path.move(to: CGPoint(x: b.frame.midX, y: b.frame.midY))
         let temp = loc["location"] as! [String : Int]
@@ -33,6 +35,7 @@ func doButtonTouchAnimation(b: NoteButton, otherButtons: Array<[String: Any]>, v
         animation.toValue = 1.0
         animation.duration = 0.225
         layer.add(animation, forKey: "drawLineAnimation")
+        */
     }
 }
 
