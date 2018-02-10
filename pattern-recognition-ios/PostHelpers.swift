@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import AudioKit
 
 func makeRequest(buttons: Array<[String : Any]>, adventure: Int) -> URLRequest {
     var request = URLRequest(url: URL(string: "http://tide-pool.link/pattern-rec/analysis")!)
@@ -20,6 +21,7 @@ func makeRequest(buttons: Array<[String : Any]>, adventure: Int) -> URLRequest {
 
 func mapResponse(data: Data, buttonMap: [String : UIButton]) -> Void {
     do {
+        var oscIndex = 0
         let json = try JSONSerialization.jsonObject(with: data) as? [String: Any]
         for b in json!["mapping"] as! [AnyObject] {
             let loc = b["location"]! as! [String: Int]
@@ -28,6 +30,10 @@ func mapResponse(data: Data, buttonMap: [String : UIButton]) -> Void {
             let key = "\(xVal)---\(yVal)"
             let theButton = buttonMap[key] as! NoteButton
             let f = b["noteFreq"] as! Double
+            
+            theButton.oscillatorIndex = oscIndex
+            oscIndex = oscIndex + 1
+            
             theButton.freq = f
             // Sometimes we don't have a midi number
             theButton.noteNumber = 100
