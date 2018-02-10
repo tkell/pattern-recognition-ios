@@ -115,43 +115,11 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         self.mainPostButton.isHidden = true
         
         // This is the draw code
-        // Looks ok, but thrashes with more than ~10 buttons!
-        buttonLocList.forEach { b1 in
-            /*
-            let temp = b1["location"] as! [String : Int]
-            let xLoc1 = temp["x"]!
-            let yLoc1 = temp["y"]!
-            buttonLocList.forEach { b2 in
-                let path = UIBezierPath()
-                path.move(to: CGPoint(x: xLoc1, y: yLoc1))
-                let temp = b2["location"] as! [String : Int]
-                let xLoc2 = temp["x"]!
-                let yLoc2 = temp["y"]!
-                path.addLine(to: CGPoint(x: xLoc2, y: yLoc2))
-                
-                path.close()
-                
-                let layer = CAShapeLayer()
-                layer.strokeColor = UIColor.white.cgColor
-                view.layer.addSublayer(layer)
-                layer.path = path.cgPath
-                
-                let animation = CABasicAnimation(keyPath: "strokeEnd")
-                /* set up animation */
-                animation.fromValue = 0.0
-                animation.toValue = 1.0
-                animation.duration = (drand48() * 3.5) + 0.5
-                layer.add(animation, forKey: "drawLineAnimation")
-                
-                let fadeAnimation = CABasicAnimation(keyPath: "opacity")
-                fadeAnimation.fromValue = 1.0
-                fadeAnimation.toValue = 0.0
-                fadeAnimation.duration = 3.5
-                layer.add(fadeAnimation, forKey: "opacity")
-                layer.opacity = 0.0
-            }
-            */
-        }
+        // Looks ok, but thrashes with 8-10 buttons!
+        // I should be able to do up to 20 buttons or so
+        // hmm, ok, doing half the work does not help much.
+        doMapAnimation(buttonLocList: buttonLocList, view: view, reverse: false)
+        doMapAnimation(buttonLocList: buttonLocList, view: view, reverse: true)
 
         // Create request
         let request = makeRequest(buttons: buttonLocList, adventure: self.adventure)
