@@ -28,7 +28,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     var midi = AKMIDI()
     var adventure: Int = 0
     
-    var oscArray: Array<AKOscillatorBank> = []
+    var oscArray: Array<PatternSynth> = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -50,21 +50,11 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         imageView.isUserInteractionEnabled = true
         imageView.addGestureRecognizer(tapGestureRecognizer)
 
-        // Create and wire up a fake oscillator to cache the creation of the AudioKit objects.
-        // So let's create a whole lot of these.  Let's try it with 24, and see if it fixes the problem.
-        // Ah, the array needs to have references to both Oscs _and_ the output AKMixer, for each entry in it.  Ugh.
-        // Also need to modify NoteButton
-        // then, let's try it with 12 and build the replacer.
-        
-        
+        // this is slow, will need to build some flair to distract it
         for index in 0...11 {
-            oscArray.append(createOsc(shape: "square", a: 0.125, d: 0.25, s: 0.2, r: 0.1))
-            AudioKit.output = oscArray[index]
+            oscArray.append(PatternSynth())
+            AudioKit.output = oscArray[index].mixer
         }
-        
-        // will need to bring these back once I build the proper object
-        // let fauxOsc = createOsc(shape: "square", a: 0.125, d: 0.25, s: 0.2, r: 0.1)
-        // AudioKit.output = AKMixer(createAudioPath(osc: fauxOsc, f: 6500, res: 0.1, t: 0.166, fb: 0.35, mix: 0.1))
     }
 
     override func didReceiveMemoryWarning() {
@@ -82,28 +72,21 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     // ** BUTTON CLICK FUNCTIONS
     @objc func buttonNoteOn(sender: NoteButton) {
         if sender.clickable && self.state == "mapDone" {
-            let osc = self.oscArray[sender.oscillatorIndex]
-            playNote(midi: midi, oscs: [osc], note: sender.noteNumber, vel: 90, freq: sender.freq)
+            let synth = self.oscArray[sender.oscillatorIndex]
+            playNote(midi: midi, oscs: synth.oscs, note: sender.noteNumber, vel: 90, freq: sender.freq)
             doButtonTouchAnimation(b: sender, otherButtons: self.buttonLocList, view: view)
          }
     }
     
     @objc func buttonNoteOff(sender:NoteButton) {
         if sender.clickable {
-            let osc = self.oscArray[sender.oscillatorIndex]
-            stopNote(midi: midi, oscs: [osc], note: sender.noteNumber)
+            let synth = self.oscArray[sender.oscillatorIndex]
+            stopNote(midi: midi, oscs: synth.oscs, note: sender.noteNumber)
             finishButtonTouchAnimation(b: sender)
         }
     }
     
     // ** RESET BUTTONS CODE
-
-    // OK, so the memory heirarchy claims that my oscs are not getting garbage collected.
-    // A complex workaround is to pick some number of Oscs (24?), build them at start, and assign them at map to each NoteButton?
-    // yeah, start with 24 - you'd need an array, with each element exposing both oscillators and the mixer out
-    // then, in the map, you assign the oscs to the NoteButton's osc, and assign the mixer out to AudioKit.output
-    // for teardown, you remove the buttons and detach the mixer outs.
-    
     @IBAction func clearButtons(_ sender: Any) {
         print("clear button, stop audio")
         _ = buttonRefMap.values.map {b in
@@ -131,7 +114,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         self.bottomRedoButton.isHidden = false
         self.mainPostButton.isHidden = true
         
-        
+        // This is the draw code
         // Looks ok, but thrashes with more than ~10 buttons!
         buttonLocList.forEach { b1 in
             /*
@@ -206,7 +189,6 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         let buttonSize = (self.view.frame.size.height + self.view.frame.size.width / 2) / 10
 
         let button = makeButton(touchPoint: touchPoint, buttonSize: buttonSize, viewController: self)
-        // Here!  This is where we will add additional synths to the array of synths.
         view.addSubview(button)
         
         // Set up the JSON data
@@ -216,6 +198,11 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         let location = ["location": l] as [String: Any]
         buttonLocList.append(location)
 
+        // If we need to create a new synth, we do it here
+        if buttonLocList.count > oscArray.count {
+            oscArray.append(PatternSynth())
+            AudioKit.output = oscArray[oscArray.count - 1].mixer
+        }
 
         // Store the button by location so we can assign to it later on
         let key = "\(xInt)---\(yInt)"

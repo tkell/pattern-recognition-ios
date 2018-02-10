@@ -8,6 +8,24 @@
 
 import AudioKit
 
+class PatternSynth {
+    var osc1: AKOscillatorBank
+    var osc2: AKOscillatorBank
+    var oscs: Array<AKOscillatorBank> = []
+    var mixer: AKMixer
+
+    required init() {
+        self.osc1 = createOsc(shape: "square", a: 0.125, d: 0.25, s: 0.2, r: 0.1)
+        self.osc2 = createOsc(shape: "triangle", a: 0.1, d: 0.2, s: 0.25, r: 0.2)
+        self.oscs.append(osc1)
+        self.oscs.append(osc2)
+
+        self.mixer = AKMixer(createAudioPath(osc: self.osc1, f: 6500, res: 0.1, t: 0.166, fb: 0.35, mix: 0.1),
+                             createAudioPath(osc: self.osc2, f: 8000, res: 0.1, t: 0.15, fb: 0.4, mix: 0.2)
+            )
+    }
+}
+
 func createOsc(shape: String, a: Double, d: Double, s: Double, r: Double) ->  AKOscillatorBank {
     var table = AKTable(.sine)
     if shape == "triangle" {
