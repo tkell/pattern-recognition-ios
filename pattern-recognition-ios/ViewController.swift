@@ -50,6 +50,37 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
 
         imageView.isUserInteractionEnabled = true
         imageView.addGestureRecognizer(tapGestureRecognizer)
+        
+        let myPath = UIBezierPath()
+        let layer = CAShapeLayer()
+        layer.strokeColor = UIColor.black.cgColor
+        
+        let testLocations: Array<(Int,Int)> = [(100, 100), (200, 200), (250, 100), (400, 400)]
+        for i in 0...testLocations.count - 2 {
+            let a = testLocations[i]
+            let b = testLocations[i + 1]
+            let path = UIBezierPath()
+            path.move(to: CGPoint(x: a.0, y: a.1))
+            path.addLine(to: CGPoint(x: b.0, y: b.1))
+            myPath.append(path)
+        }
+        
+        let animation = CABasicAnimation(keyPath: "strokeEnd")
+        /* set up animation */
+        animation.fromValue = 0.0
+        animation.toValue = 1.0
+        animation.duration = 5.0
+        layer.add(animation, forKey: "strokeEndAnimation")
+        
+        let fadeAnimation = CABasicAnimation(keyPath: "opacity")
+        fadeAnimation.fromValue = 1.0
+        fadeAnimation.toValue = 0.0
+        fadeAnimation.duration = 10.0
+        layer.add(fadeAnimation, forKey: "opacity")
+        layer.opacity = 0.0
+        
+        view.layer.addSublayer(layer)
+        layer.path = myPath.cgPath
 
         // this is slow, will need to build some flair to distract it
         for index in 0...11 {
