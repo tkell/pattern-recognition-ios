@@ -21,6 +21,8 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     @IBOutlet weak var bottomRedoButton: UIButton!
     @IBOutlet weak var mainPostButton: UIButton!
     @IBOutlet weak var mainTouchLabel: UILabel!
+    
+
 
     var state: String = "splash"
     var buttonLocList: Array<[String: Any]> = []
@@ -32,7 +34,6 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
         // Hide the inputs
         self.bottomImageButton.isHidden = true
         self.adventureSlider.isHidden = true
