@@ -110,3 +110,64 @@ func finishButtonTouchAnimation(b: NoteButton) -> Void {
     }
 }
 
+
+func doSplashAnimation(width: UInt32, height: UInt32, self: ViewController) {
+    let myPath = UIBezierPath()
+    let layer = CAShapeLayer()
+    layer.strokeColor = UIColor.white.cgColor
+    layer.zPosition = 1
+
+    let numLocations = arc4random_uniform(_:6) + 4
+    var locations: Array<(Int,Int)> = []
+
+    for _ in 0...numLocations {
+        let x = Int(arc4random_uniform(_:width) + 10)
+        let y = Int(arc4random_uniform(_:height) + 10)
+        locations.append((x, y))
+    }
+
+    for i in 0...locations.count - 1 {
+        var a = (0, 0)
+        var b = (0, 0)
+        if i == locations.count - 1 {
+            a = locations[i]
+            b = locations[0]
+        } else {
+            a = locations[i]
+            b = locations[i + 1]
+        }
+        let path = UIBezierPath()
+        path.move(to: CGPoint(x: a.0, y: a.1))
+        path.addLine(to: CGPoint(x: b.0, y: b.1))
+        myPath.append(path)
+    }
+
+    CATransaction.begin()
+    CATransaction.setCompletionBlock {
+        if self.state == "splash" {
+            doSplashAnimation(width: width, height: height, self: self)
+        }
+    }
+
+    let animation = CABasicAnimation(keyPath: "strokeEnd")
+    /* set up animation */
+    animation.fromValue = 0.0
+    animation.toValue = 1.0
+    animation.duration = Double(arc4random_uniform(_:3) + 2)
+    layer.add(animation, forKey: "strokeEndAnimation")
+
+    let fadeAnimation = CABasicAnimation(keyPath: "opacity")
+    fadeAnimation.fromValue = 1.0
+    fadeAnimation.toValue = 0.0
+    fadeAnimation.duration = Double(arc4random_uniform(_:4) + 4)
+    layer.add(fadeAnimation, forKey: "opacity")
+
+    CATransaction.commit()
+    layer.opacity = 0.0
+
+    self.view.layer.addSublayer(layer)
+    layer.path = myPath.cgPath
+
+    locations = []
+}
+
