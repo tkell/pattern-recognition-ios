@@ -14,15 +14,12 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var mainImageButton: UIButton!
     @IBOutlet weak var bottomImageButton: UIButton!
-    @IBOutlet weak var bottomPostButton: UIButton!
     @IBOutlet weak var adventureSlider: UISlider!
     @IBOutlet weak var adventureSliderLeftLabel: UILabel!
     @IBOutlet weak var adventureSliderRightLabel: UILabel!
     @IBOutlet weak var bottomRedoButton: UIButton!
     @IBOutlet weak var mainPostButton: UIButton!
     @IBOutlet weak var mainTouchLabel: UILabel!
-    
-
 
     var state: String = "splash"
     var buttonLocList: Array<[String: Any]> = []
@@ -37,7 +34,6 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         // Hide the inputs
         self.bottomImageButton.isHidden = true
         self.adventureSlider.isHidden = true
-        self.bottomPostButton.isHidden = true
         self.adventureSliderLeftLabel.isHidden = true
         self.adventureSliderRightLabel.isHidden = true
         self.bottomRedoButton.isHidden = true
@@ -98,6 +94,9 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         sender.setValue(sender.value.rounded(.down), animated: true)
         self.adventure = Int(sender.value.rounded(.down))
         print(adventure)
+        
+        // re-do the map here too!
+        sendPostRequest(mainImageButton) // A dummy button.
     }
 
     
@@ -140,11 +139,10 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         
         self.bottomImageButton.isHidden = false
         self.adventureSlider.isHidden = false
-        self.bottomPostButton.isHidden = false
         self.adventureSliderLeftLabel.isHidden = false
         self.adventureSliderRightLabel.isHidden = false
         self.bottomRedoButton.isHidden = false
-        self.mainPostButton.isHidden = true
+        self.mainPostButton.isHidden = false
         
         // This is the draw code
         // Looks ok, but thrashes with 8-10 buttons!
