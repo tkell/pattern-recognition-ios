@@ -29,7 +29,7 @@
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="ZR2-49-2XF" secondAttribute="height" multiplier="49:15" id="Uw5-Na-tZ4"/>
                                 </constraints>
-                                <state key="normal" title="Make Image">
+                                <state key="normal" title="New Image">
                                     <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
                                 <connections>
@@ -58,8 +58,8 @@
                                 </connections>
                             </slider>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Haj-Gv-Ubl">
-                                <rect key="frame" x="264" y="616" width="95" height="30"/>
-                                <state key="normal" title="Make Buttons">
+                                <rect key="frame" x="271" y="616" width="88" height="30"/>
+                                <state key="normal" title="New Buttons">
                                     <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
                                 <connections>
