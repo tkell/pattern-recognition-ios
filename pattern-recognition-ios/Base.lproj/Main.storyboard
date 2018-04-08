@@ -24,7 +24,7 @@
                                 <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZR2-49-2XF">
-                                <rect key="frame" x="10" y="597" width="77" height="30"/>
+                                <rect key="frame" x="10" y="613" width="77" height="30"/>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <state key="normal" title="New Image">
                                     <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -45,14 +45,14 @@
                                 </connections>
                             </button>
                             <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" minValue="0.0" maxValue="4" continuous="NO" translatesAutoresizingMaskIntoConstraints="NO" id="i5m-aH-AmM">
-                                <rect key="frame" x="126.5" y="573" width="122" height="30"/>
+                                <rect key="frame" x="126.5" y="573" width="122" height="31"/>
                                 <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <connections>
                                     <action selector="sliderValueChanged:" destination="BYZ-38-t0r" eventType="valueChanged" id="OvS-0Z-H92"/>
                                 </connections>
                             </slider>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Haj-Gv-Ubl">
-                                <rect key="frame" x="293" y="597" width="73" height="30"/>
+                                <rect key="frame" x="293" y="613" width="73" height="30"/>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <state key="normal" title="New Buttons">
                                     <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -81,7 +81,7 @@
                                 </variation>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="249" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Fiz-Df-mps">
-                                <rect key="frame" x="98" y="597" width="179" height="30"/>
+                                <rect key="frame" x="98" y="613" width="179" height="30"/>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <state key="normal" title="Map The Pattern">
                                     <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -91,7 +91,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="249" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="R8m-hX-AdA">
-                                <rect key="frame" x="98" y="579" width="179" height="48"/>
+                                <rect key="frame" x="98" y="579" width="179" height="64"/>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="30"/>
                                 <state key="normal" title="Map The Pattern">
@@ -132,6 +132,7 @@
                             <constraint firstItem="Zre-nc-qA8" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="241" id="aVE-tU-fnZ"/>
                             <constraint firstItem="Fiz-Df-mps" firstAttribute="centerX" secondItem="i5m-aH-AmM" secondAttribute="centerX" id="abJ-41-EHj"/>
                             <constraint firstItem="Fiz-Df-mps" firstAttribute="baseline" secondItem="ZR2-49-2XF" secondAttribute="baseline" id="aeF-M6-NdI"/>
+                            <constraint firstItem="j1D-GS-eg7" firstAttribute="bottom" secondItem="Fiz-Df-mps" secondAttribute="top" constant="-16" id="bJH-h8-S0I"/>
                             <constraint firstItem="i5m-aH-AmM" firstAttribute="leading" secondItem="j1D-GS-eg7" secondAttribute="trailing" constant="18" id="drA-ca-zgA"/>
                             <constraint firstItem="Fiz-Df-mps" firstAttribute="baseline" secondItem="Haj-Gv-Ubl" secondAttribute="baseline" id="eOm-Sz-sWr"/>
                             <constraint firstItem="ON9-ua-4Vq" firstAttribute="top" secondItem="Zre-nc-qA8" secondAttribute="top" id="haN-h9-8pr"/>
