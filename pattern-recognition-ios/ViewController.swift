@@ -20,7 +20,8 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     @IBOutlet weak var bottomRedoButton: UIButton!
     @IBOutlet weak var mainPostButton: UIButton!
     @IBOutlet weak var mainTouchLabel: UILabel!
-
+    @IBOutlet weak var firstPostButton: UIButton!
+    
     var state: String = "splash"
     var buttonLocList: Array<[String: Any]> = []
     var buttonRefMap: [String: NoteButton] = [:] // Tacky stringmap with 'x---y', ah well.
@@ -39,6 +40,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         self.bottomRedoButton.isHidden = true
         self.mainPostButton.isHidden = true
         self.mainTouchLabel.isHidden = true
+        self.firstPostButton.isHidden = true
 
         // Allow touches on the image
         let tapGestureRecognizer = UITapGestureRecognizer(target: self,
@@ -100,7 +102,11 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         }
         buttonRefMap = [:]
         buttonLocList = []
-        AudioKit.stop()
+        do {
+            try AudioKit.stop()
+        } catch is Error {
+            print("AudioKit failed to stop!")
+        }
         state = "photoTaken"
     }
     
@@ -117,7 +123,8 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         self.adventureSliderRightLabel.isHidden = false
         self.bottomRedoButton.isHidden = false
         self.mainPostButton.isHidden = false
-        
+        self.firstPostButton.isHidden = true
+
         doMapAnimation(buttonLocList: buttonLocList, view: view, reverse: false)
         doMapAnimation(buttonLocList: buttonLocList, view: view, reverse: true)
 
@@ -136,7 +143,11 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
             
             // in mapResponse, we'll send in the array of synths, and assign them
             mapResponse(data: data, buttonMap: self.buttonRefMap)
-            AudioKit.start()
+            do {
+                try AudioKit.start()
+            } catch is Error {
+                print("AudioKit failed to start!")
+            }
             self.midi.openOutput()
             self.state = "mapDone"
             print("we mapped things!")
@@ -217,7 +228,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
                 self.mainTouchLabel.isHidden = false
             } else {
                 self.mainImageButton.isHidden = true
-                self.mainPostButton.isHidden = false
+                self.firstPostButton.isHidden = false
                 self.mainTouchLabel.isHidden = false
             }
             self.state = "photoTaken"

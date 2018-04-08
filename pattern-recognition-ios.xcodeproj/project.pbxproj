@@ -154,8 +154,6 @@
 				43D3E4A41FB68C6C00DFF891 /* Sources */,
 				43D3E4A51FB68C6C00DFF891 /* Frameworks */,
 				43D3E4A61FB68C6C00DFF891 /* Resources */,
-				2820A2EEAB92B51DF5563157 /* [CP] Embed Pods Frameworks */,
-				8806EDA5B40CADBA80A28712 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -174,8 +172,6 @@
 				43D3E4B81FB68C6C00DFF891 /* Sources */,
 				43D3E4B91FB68C6C00DFF891 /* Frameworks */,
 				43D3E4BA1FB68C6C00DFF891 /* Resources */,
-				56F714D69BF24B035DBE6156 /* [CP] Embed Pods Frameworks */,
-				5A783A4F726F22131F99DFB6 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -266,56 +262,6 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		2820A2EEAB92B51DF5563157 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-pattern-recognition-ios/Pods-pattern-recognition-ios-frameworks.sh",
-				"${PODS_ROOT}/AudioKit/iOS/AudioKit.framework",
-				"${PODS_ROOT}/AudioKit/iOS/AudioKitUI.framework",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AudioKit.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AudioKitUI.framework",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-pattern-recognition-ios/Pods-pattern-recognition-ios-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		56F714D69BF24B035DBE6156 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-pattern-recognition-iosTests/Pods-pattern-recognition-iosTests-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		5A783A4F726F22131F99DFB6 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-pattern-recognition-iosTests/Pods-pattern-recognition-iosTests-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		6D12632950B6C2E5A9F98BA5 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -332,21 +278,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		8806EDA5B40CADBA80A28712 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-pattern-recognition-ios/Pods-pattern-recognition-ios-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
