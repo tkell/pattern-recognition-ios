@@ -27,11 +27,12 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     var buttonRefMap: [String: NoteButton] = [:] // Tacky stringmap with 'x---y', ah well.
     var midi = AKMIDI()
     var adventure: Int = 0
-    
     var oscArray: Array<PatternSynth> = []
     
+    // The slowness here _appears_ to be debug-load related?
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         // Hide the inputs
         self.bottomImageButton.isHidden = true
         self.adventureSlider.isHidden = true
@@ -41,6 +42,16 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         self.mainPostButton.isHidden = true
         self.mainTouchLabel.isHidden = true
         self.firstPostButton.isHidden = true
+        
+        // Load the synths async
+        let background = DispatchQueue.global()
+        background.async {
+            for index in 0...11 {
+                self.oscArray.append(PatternSynth())
+                AudioKit.output = self.oscArray[index].mixer
+                print(index, "added synth")
+            }
+        }
 
         // Allow touches on the image
         let tapGestureRecognizer = UITapGestureRecognizer(target: self,
@@ -49,16 +60,9 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         imageView.isUserInteractionEnabled = true
         imageView.addGestureRecognizer(tapGestureRecognizer)
         
-        
         let width = UInt32(self.view.frame.size.width)
         let height = UInt32(self.view.frame.size.height)
         doSplashAnimation(width: width, height: height, self: self)
-
-        // this is slow, will need to build some flair to distract it
-        for index in 0...11 {
-            oscArray.append(PatternSynth())
-            AudioKit.output = oscArray[index].mixer
-        }
     }
 
     override func didReceiveMemoryWarning() {
