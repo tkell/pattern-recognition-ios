@@ -115,6 +115,17 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     }
     
     // ** POST REQUEST CODE
+    
+    func startAudioAfterPost() -> Void {
+        do {
+            try AudioKit.start()
+        } catch is Error {
+            print("AudioKit failed to start!")
+        }
+        self.midi.openOutput()
+        self.state = "mapDone"
+    }
+    
     @IBAction func sendPostRequest(_ sender: UIButton) {
         // Don't map twice unless we have an image, and have at least 3 buttons
         if self.state != "photoTaken" && self.state != "mapDone"  || self.buttonLocList.count < 3 {
@@ -138,23 +149,23 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         // Send & deal with the response
         let task = URLSession.shared.dataTask(with: request) { data, response, error in
             guard let data = data, error == nil else {
-                print("Network error!")
+                print("Network error, falling back to offline mapping")
+                offlineMap(buttonMap: self.buttonRefMap)
+                self.startAudioAfterPost()
                 return
             }
             if let httpStatus = response as? HTTPURLResponse, httpStatus.statusCode != 200 {
                 print("statusCode should be 200, but is \(httpStatus.statusCode)")
+                print("falling back to offline mapping")
+                offlineMap(buttonMap: self.buttonRefMap)
+                self.startAudioAfterPost()
+                return
             }
             
             // in mapResponse, we'll send in the array of synths, and assign them
             mapResponse(data: data, buttonMap: self.buttonRefMap)
-            do {
-                try AudioKit.start()
-            } catch is Error {
-                print("AudioKit failed to start!")
-            }
-            self.midi.openOutput()
-            self.state = "mapDone"
-            print("we mapped things!")
+            print("online mapping successful")
+            self.startAudioAfterPost()
         }
         task.resume()
     }
