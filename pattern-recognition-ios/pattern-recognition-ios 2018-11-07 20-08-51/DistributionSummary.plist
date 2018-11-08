@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>pattern-recognition-ios.ipa</key>
+	<array>
+		<dict>
+			<key>architectures</key>
+			<array>
+				<string>armv7</string>
+				<string>arm64</string>
+			</array>
+			<key>certificate</key>
+			<dict>
+				<key>SHA1</key>
+				<string>0F3B6B6EF36D78D732ABF6DD8B0D2105AC341AFE</string>
+				<key>dateExpires</key>
+				<string>11/10/18</string>
+				<key>type</key>
+				<string>iOS Development</string>
+			</dict>
+			<key>entitlements</key>
+			<dict>
+				<key>application-identifier</key>
+				<string>F3NQ98RKLR.tidepool.pattern-recognition-ios</string>
+				<key>com.apple.developer.team-identifier</key>
+				<string>F3NQ98RKLR</string>
+				<key>get-task-allow</key>
+				<true/>
+				<key>keychain-access-groups</key>
+				<array>
+					<string>F3NQ98RKLR.tidepool.pattern-recognition-ios</string>
+				</array>
+			</dict>
+			<key>name</key>
+			<string>pattern-recognition-ios.app</string>
+			<key>profile</key>
+			<dict>
+				<key>UUID</key>
+				<string>cbb56133-fb3a-4a85-b101-4bf3a64d7e7d</string>
+				<key>name</key>
+				<string>iOS Team Provisioning Profile: tidepool.pattern-recognition-ios</string>
+			</dict>
+			<key>team</key>
+			<dict>
+				<key>id</key>
+				<string>F3NQ98RKLR</string>
+				<key>name</key>
+				<string>Thor Kell</string>
+			</dict>
+		</dict>
+	</array>
+</dict>
+</plist>
