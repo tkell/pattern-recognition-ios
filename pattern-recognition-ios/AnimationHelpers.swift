@@ -153,7 +153,7 @@ func doSplashAnimation(width: UInt32, height: UInt32, self: ViewController) {
     /* set up animation */
     animation.fromValue = 0.0
     animation.toValue = 1.0
-    animation.duration = Double(arc4random_uniform(_:3) + 2)
+    animation.duration = Double(arc4random_uniform(_:3) + 1)
     layer.add(animation, forKey: "strokeEndAnimation")
 
     let fadeAnimation = CABasicAnimation(keyPath: "opacity")
