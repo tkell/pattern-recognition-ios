@@ -115,7 +115,6 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     }
     
     // ** POST REQUEST CODE
-    
     func startAudioAfterPost() -> Void {
         do {
             try AudioKit.start()
@@ -201,30 +200,46 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         // Store the button by location so we can assign to it later on
         let key = "\(xInt)---\(yInt)"
         buttonRefMap[key] = button
-        
-        // This is also a good place to add flair, draw those lines, etc
     }
-    
     
     // ** CAMERA CODE **
-    @IBAction func useCamera(_ sender: Any) {
-        // All this code is called when the camera is used, as you would hope.
-        if UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.camera) {
-            let imagePicker = UIImagePickerController()
-            imagePicker.delegate = self
-            imagePicker.sourceType = UIImagePickerControllerSourceType.camera
-            imagePicker.mediaTypes = [kUTTypeImage as String]
-            imagePicker.allowsEditing = false
-            self.present(imagePicker, animated: true, completion: nil)
-        }
-    }
-    // Function to fade out the label
     func doFadeOut() {
+        // Function to fade out the label, used by camera code
         UIView.animate(withDuration: 5, animations: {
             self.mainTouchLabel.alpha = 0.0
         })
     }
     
+    @IBAction func useCamera(_ sender: Any) {
+        // All this code is called when the camera is used, as you would hope.
+        if TARGET_OS_SIMULATOR == 1 {
+            print("We are on the simulator, going direct to the next state")
+            // Remove any old buttons, update state
+            _ = buttonRefMap.values.map {b in b.removeFromSuperview()}
+            buttonRefMap = [:]
+            buttonLocList = []
+            if self.state == "mapDone" {
+                self.mainTouchLabel.alpha = 1.0
+                self.mainTouchLabel.isHidden = false
+            } else {
+                self.mainImageButton.isHidden = true
+                self.firstPostButton.isHidden = false
+                self.mainTouchLabel.isHidden = false
+            }
+            self.state = "photoTaken"
+            // We could maybe load a static or programmatic image here, but let's fix all of our layouts first, god
+        } else {
+            if UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.camera) {
+                let imagePicker = UIImagePickerController()
+                imagePicker.delegate = self
+                imagePicker.sourceType = UIImagePickerControllerSourceType.camera
+                imagePicker.mediaTypes = [kUTTypeImage as String]
+                imagePicker.allowsEditing = false
+                self.present(imagePicker, animated: true, completion: nil)
+            }
+        }
+    }
+
     // Load the image.
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
         let mediaType = info[UIImagePickerControllerMediaType] as! NSString
