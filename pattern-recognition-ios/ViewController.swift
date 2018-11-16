@@ -43,6 +43,14 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         self.mainTouchLabel.isHidden = true
         self.firstPostButton.isHidden = true
         
+        // Put buttons in the right damn places
+        let yGridSize = self.view.frame.size.height / 12
+        let xGridSize = self.view.frame.size.width / 12
+        let bigFontSize = (yGridSize / 2) - 2
+        mainImageButton.frame = CGRect(x: 0, y: yGridSize * 4, width: xGridSize * 12, height: yGridSize)
+        mainImageButton.titleLabel?.font = mainImageButton.titleLabel?.font.withSize(bigFontSize)
+        
+        
         // Load the synths async
         let background = DispatchQueue.global()
         background.async {
