@@ -47,8 +47,15 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         let yGridSize = self.view.frame.size.height / 12
         let xGridSize = self.view.frame.size.width / 12
         let bigFontSize = (yGridSize / 2) - 2
+        let mediumFontSize = (yGridSize / 3)
+
         mainImageButton.frame = CGRect(x: 0, y: yGridSize * 4, width: xGridSize * 12, height: yGridSize)
         mainImageButton.titleLabel?.font = mainImageButton.titleLabel?.font.withSize(bigFontSize)
+        
+        self.mainTouchLabel.frame = CGRect(x: 0, y: yGridSize * 4, width: xGridSize * 12, height: yGridSize)
+        self.mainTouchLabel.font = mainImageButton.titleLabel?.font.withSize(bigFontSize)
+        self.firstPostButton.frame = CGRect(x: xGridSize * 3, y: yGridSize * 10, width: xGridSize * 6, height: yGridSize)
+        self.firstPostButton.titleLabel?.font = mainImageButton.titleLabel?.font.withSize(mediumFontSize)
         
         
         // Load the synths async

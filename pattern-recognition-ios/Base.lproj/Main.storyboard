@@ -85,8 +85,9 @@
                                 <color key="textColor" red="0.99019607843137258" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Touch Pattern To Create Buttons" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ON9-ua-4Vq" colorLabel="IBBuiltInLabel-Gray">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Touch Pattern To Create Buttons" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ON9-ua-4Vq" colorLabel="IBBuiltInLabel-Gray">
                                 <rect key="frame" x="0.0" y="166" width="414" height="31.333333333333343"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" red="0.99019607843137258" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="26"/>
                                 <nil key="textColor"/>
@@ -116,8 +117,6 @@
                             <constraint firstItem="R8m-hX-AdA" firstAttribute="top" secondItem="W1V-PG-yod" secondAttribute="bottom" constant="31" id="3hS-cs-4GU"/>
                             <constraint firstItem="j1D-GS-eg7" firstAttribute="centerY" secondItem="i5m-aH-AmM" secondAttribute="centerY" id="41v-0R-CgZ"/>
                             <constraint firstItem="Fiz-Df-mps" firstAttribute="top" secondItem="i5m-aH-AmM" secondAttribute="bottom" constant="2" id="44c-dl-b1X"/>
-                            <constraint firstItem="ON9-ua-4Vq" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="146" id="8C2-k0-hWp"/>
-                            <constraint firstItem="ON9-ua-4Vq" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="EYA-KY-VkM"/>
                             <constraint firstItem="R8m-hX-AdA" firstAttribute="leading" secondItem="ZR2-49-2XF" secondAttribute="trailing" constant="19" id="Hdm-Ka-rf1"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="Haj-Gv-Ubl" secondAttribute="trailing" constant="9" id="TtP-Q7-eJ7"/>
                             <constraint firstItem="i5m-aH-AmM" firstAttribute="centerX" secondItem="Fiz-Df-mps" secondAttribute="centerX" id="XJg-Sb-mWx"/>
@@ -133,7 +132,6 @@
                             <constraint firstItem="ZR2-49-2XF" firstAttribute="top" secondItem="j1D-GS-eg7" secondAttribute="bottom" constant="20" id="nJB-Kl-g3R"/>
                             <constraint firstItem="i5m-aH-AmM" firstAttribute="leading" secondItem="j1D-GS-eg7" secondAttribute="trailing" constant="25" id="qC1-PC-mpu"/>
                             <constraint firstItem="j1D-GS-eg7" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="25" id="qYO-2l-yDc"/>
-                            <constraint firstItem="W1V-PG-yod" firstAttribute="trailing" secondItem="ON9-ua-4Vq" secondAttribute="trailing" id="rNK-oa-6Bg"/>
                             <constraint firstItem="Haj-Gv-Ubl" firstAttribute="leading" secondItem="Fiz-Df-mps" secondAttribute="trailing" constant="33" id="uMP-RM-k0c"/>
                             <constraint firstItem="W1V-PG-yod" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="vU3-nR-7Fu"/>
                             <constraint firstAttribute="trailing" secondItem="W1V-PG-yod" secondAttribute="trailing" id="wzs-UP-iS2"/>
