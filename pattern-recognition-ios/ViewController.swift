@@ -48,15 +48,33 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         let xGridSize = self.view.frame.size.width / 12
         let bigFontSize = (yGridSize / 2) - 2
         let mediumFontSize = (yGridSize / 3)
+        let smallFontSize = (yGridSize / 5)
 
+        // Splash screen layout
         mainImageButton.frame = CGRect(x: 0, y: yGridSize * 4, width: xGridSize * 12, height: yGridSize)
         mainImageButton.titleLabel?.font = mainImageButton.titleLabel?.font.withSize(bigFontSize)
         
+        // Button Assignment screen layout
         self.mainTouchLabel.frame = CGRect(x: 0, y: yGridSize * 4, width: xGridSize * 12, height: yGridSize)
-        self.mainTouchLabel.font = mainImageButton.titleLabel?.font.withSize(bigFontSize)
+        self.mainTouchLabel.font = self.mainTouchLabel.font.withSize(bigFontSize)
         self.firstPostButton.frame = CGRect(x: xGridSize * 3, y: yGridSize * 10, width: xGridSize * 6, height: yGridSize)
-        self.firstPostButton.titleLabel?.font = mainImageButton.titleLabel?.font.withSize(mediumFontSize)
+        self.firstPostButton.titleLabel?.font = self.firstPostButton.titleLabel?.font.withSize(mediumFontSize)
         
+        // Main screen layout
+        // Upper level
+        self.adventureSlider.frame = CGRect(x: xGridSize * 3, y: yGridSize * 10, width: xGridSize * 6, height: yGridSize / 2)
+        self.adventureSliderLeftLabel.frame = CGRect(x: xGridSize * 0, y: yGridSize * 10, width: xGridSize * 3, height: yGridSize / 2)
+        self.adventureSliderLeftLabel.font = self.adventureSliderLeftLabel.font.withSize(smallFontSize)
+        self.adventureSliderRightLabel.frame = CGRect(x: xGridSize * 9, y: yGridSize * 10, width: xGridSize * 3, height: yGridSize / 2)
+        self.adventureSliderRightLabel.font = self.adventureSliderRightLabel.font.withSize(smallFontSize)
+
+        // Lower level
+        self.mainPostButton.frame = CGRect(x: xGridSize * 4, y: yGridSize * 11, width: xGridSize * 4, height: yGridSize / 2)
+        self.mainPostButton.titleLabel?.font = mainPostButton.titleLabel?.font.withSize(smallFontSize)
+        self.bottomImageButton.frame = CGRect(x: xGridSize * 0, y: yGridSize * 11, width: xGridSize * 3, height: yGridSize / 2)
+        self.bottomImageButton.titleLabel?.font = bottomImageButton.titleLabel?.font.withSize(smallFontSize)
+        self.bottomRedoButton.frame = CGRect(x: xGridSize * 9, y: yGridSize * 11, width: xGridSize * 3, height: yGridSize / 2)
+        self.bottomRedoButton.titleLabel?.font = bottomRedoButton.titleLabel?.font.withSize(smallFontSize)
         
         // Load the synths async
         let background = DispatchQueue.global()
