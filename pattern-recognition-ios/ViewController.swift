@@ -57,7 +57,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         // Button Assignment screen layout
         self.mainTouchLabel.frame = CGRect(x: 0, y: yGridSize * 4, width: xGridSize * 12, height: yGridSize)
         self.mainTouchLabel.font = self.mainTouchLabel.font.withSize(bigFontSize)
-        self.firstPostButton.frame = CGRect(x: xGridSize * 3, y: yGridSize * 10, width: xGridSize * 6, height: yGridSize)
+        self.firstPostButton.frame = CGRect(x: xGridSize * 3, y: yGridSize * 10.5, width: xGridSize * 6, height: yGridSize)
         self.firstPostButton.titleLabel?.font = self.firstPostButton.titleLabel?.font.withSize(mediumFontSize)
         
         // Main screen layout
