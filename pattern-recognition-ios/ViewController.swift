@@ -71,9 +71,9 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         // Lower level
         self.mainPostButton.frame = CGRect(x: xGridSize * 4, y: yGridSize * 11, width: xGridSize * 4, height: yGridSize / 2)
         self.mainPostButton.titleLabel?.font = mainPostButton.titleLabel?.font.withSize(smallFontSize)
-        self.bottomImageButton.frame = CGRect(x: xGridSize * 0, y: yGridSize * 11, width: xGridSize * 3, height: yGridSize / 2)
+        self.bottomImageButton.frame = CGRect(x: xGridSize * 0.5, y: yGridSize * 11, width: xGridSize * 3.0, height: yGridSize / 2)
         self.bottomImageButton.titleLabel?.font = bottomImageButton.titleLabel?.font.withSize(smallFontSize)
-        self.bottomRedoButton.frame = CGRect(x: xGridSize * 9, y: yGridSize * 11, width: xGridSize * 3, height: yGridSize / 2)
+        self.bottomRedoButton.frame = CGRect(x: xGridSize * 8.5, y: yGridSize * 11, width: xGridSize * 3.0, height: yGridSize / 2)
         self.bottomRedoButton.titleLabel?.font = bottomRedoButton.titleLabel?.font.withSize(smallFontSize)
         
         // Load the synths async
