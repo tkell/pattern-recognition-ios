@@ -115,7 +115,7 @@ func doSplashAnimation(width: UInt32, height: UInt32, self: ViewController) {
     let myPath = UIBezierPath()
     let layer = CAShapeLayer()
     layer.strokeColor = UIColor.white.cgColor
-    layer.zPosition = 1
+    layer.zPosition = -5
 
     let numLocations = arc4random_uniform(_:6) + 4
     var locations: Array<(Int,Int)> = []

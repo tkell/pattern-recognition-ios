@@ -42,7 +42,9 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         self.mainPostButton.isHidden = true
         self.mainTouchLabel.isHidden = true
         self.firstPostButton.isHidden = true
-        
+
+        imageView.layer.zPosition = -10
+
         // Put buttons in the right damn places
         let yGridSize = self.view.frame.size.height / 12
         let xGridSize = self.view.frame.size.width / 12
