@@ -78,7 +78,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         self.bottomRedoButton.frame = CGRect(x: xGridSize * 8.5, y: yGridSize * 11, width: xGridSize * 3.0, height: yGridSize / 2)
         self.bottomRedoButton.titleLabel?.font = bottomRedoButton.titleLabel?.font.withSize(smallFontSize)
         
-        // Load the synths async
+        // Load the synths, async
         let background = DispatchQueue.global()
         background.async {
             for index in 0...11 {

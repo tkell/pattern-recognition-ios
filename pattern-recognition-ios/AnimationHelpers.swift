@@ -12,6 +12,7 @@ import UIKit
 func doMapAnimation(buttonLocList: Array<[String: Any]>, view: UIView, reverse: Bool) -> Void {
     let myPath = UIBezierPath()
     let layer = CAShapeLayer()
+    layer.zPosition = -1 // Unsure if this fixes my bug, but it should help
     layer.strokeColor = UIColor.white.cgColor
 
     var buttonList: Array<[String: Any]> = []
