@@ -29,6 +29,10 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     var adventure: Int = 0
     var oscArray: Array<PatternSynth> = []
     
+    override open var shouldAutorotate: Bool {
+        return false
+    }
+
     // The slowness here _appears_ to be debug-load related?
     override func viewDidLoad() {
         super.viewDidLoad()
