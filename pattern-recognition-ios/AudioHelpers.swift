@@ -20,9 +20,10 @@ class PatternSynth {
         self.oscs.append(osc1)
         self.oscs.append(osc2)
 
-        self.mixer = AKMixer(createAudioPath(osc: self.osc1, f: 6500, res: 0.1, t: 0.166, fb: 0.35, mix: 0.1),
-                             createAudioPath(osc: self.osc2, f: 8000, res: 0.1, t: 0.15, fb: 0.4, mix: 0.2)
-            )
+        self.mixer = AKMixer(
+            createAudioPath(osc: self.osc1, cutoff: 2500, res: 0.1, delay: 0.166, feedback: 0.35, mix: 0.1),
+            createAudioPath(osc: self.osc2, cutoff: 2750, res: 0.1, delay: 0.15, feedback: 0.4, mix: 0.2)
+        )
     }
 }
 
@@ -43,10 +44,9 @@ func createOsc(shape: String, a: Double, d: Double, s: Double, r: Double) ->  AK
     )
 }
 
-// ACTUALLY PASS THESE THINGS IN
-func createAudioPath(osc: AKOscillatorBank, f: Double, res: Double, t: Double, fb: Double, mix: Double) -> AKNode{
-    let filter = AKLowPassFilter(osc, cutoffFrequency: 4750.0, resonance: 0.1)
-    let delay = AKDelay(filter, time: 0.166, feedback: 0.35, dryWetMix: 0.1)
+func createAudioPath(osc: AKOscillatorBank, cutoff: Double, res: Double, delay: Double, feedback: Double, mix: Double) -> AKNode{
+    let filter = AKLowPassFilter(osc, cutoffFrequency: cutoff, resonance: res)
+    let delay = AKDelay(filter, time: delay, feedback: feedback, dryWetMix: mix)
     return delay
 }
 
