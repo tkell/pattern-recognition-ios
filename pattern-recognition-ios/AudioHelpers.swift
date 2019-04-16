@@ -43,6 +43,7 @@ func createOsc(shape: String, a: Double, d: Double, s: Double, r: Double) ->  AK
     )
 }
 
+// ACTUALLY PASS THESE THINGS IN
 func createAudioPath(osc: AKOscillatorBank, f: Double, res: Double, t: Double, fb: Double, mix: Double) -> AKNode{
     let filter = AKLowPassFilter(osc, cutoffFrequency: 4750.0, resonance: 0.1)
     let delay = AKDelay(filter, time: 0.166, feedback: 0.35, dryWetMix: 0.1)

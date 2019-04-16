@@ -28,6 +28,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     var midi = AKMIDI()
     var adventure: Int = 0
     var oscArray: Array<PatternSynth> = []
+    var mainMixer = AKMixer()
     
     override open var shouldAutorotate: Bool {
         return false
@@ -87,10 +88,11 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         background.async {
             for index in 0...11 {
                 self.oscArray.append(PatternSynth())
-                AudioKit.output = self.oscArray[index].mixer
+                self.oscArray[index].mixer.connect(to: self.mainMixer)
                 print(index, "added synth")
             }
         }
+        AudioKit.output = mainMixer
 
         // Allow touches on the image
         let tapGestureRecognizer = UITapGestureRecognizer(target: self,
