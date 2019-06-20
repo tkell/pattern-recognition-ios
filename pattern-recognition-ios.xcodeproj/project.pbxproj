@@ -18,7 +18,6 @@
 		43D3E4B31FB68C6C00DFF891 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 43D3E4B21FB68C6C00DFF891 /* Assets.xcassets */; };
 		43D3E4B61FB68C6C00DFF891 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 43D3E4B41FB68C6C00DFF891 /* LaunchScreen.storyboard */; };
 		43D3E4C11FB68C6C00DFF891 /* pattern_recognition_iosTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43D3E4C01FB68C6C00DFF891 /* pattern_recognition_iosTests.swift */; };
-		5B4542DAB69B061AA3062BF3 /* Pods_pattern_recognition_ios.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8F8FB44D71BDA1016884221B /* Pods_pattern_recognition_ios.framework */; };
 		CF23031417BE05DE1F479FD1 /* Pods_pattern_recognition_iosTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F648C3281D8812E17DC8CF28 /* Pods_pattern_recognition_iosTests.framework */; };
 /* End PBXBuildFile section */
 
@@ -51,7 +50,6 @@
 		43D3E4C01FB68C6C00DFF891 /* pattern_recognition_iosTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = pattern_recognition_iosTests.swift; sourceTree = "<group>"; };
 		43D3E4C21FB68C6C00DFF891 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4A73E33BED9C9707C8BDE047 /* Pods-pattern-recognition-iosTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-pattern-recognition-iosTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-pattern-recognition-iosTests/Pods-pattern-recognition-iosTests.release.xcconfig"; sourceTree = "<group>"; };
-		8F8FB44D71BDA1016884221B /* Pods_pattern_recognition_ios.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_pattern_recognition_ios.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D0344582ED40E6F008D531CF /* Pods-pattern-recognition-ios.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-pattern-recognition-ios.release.xcconfig"; path = "Pods/Target Support Files/Pods-pattern-recognition-ios/Pods-pattern-recognition-ios.release.xcconfig"; sourceTree = "<group>"; };
 		F648C3281D8812E17DC8CF28 /* Pods_pattern_recognition_iosTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_pattern_recognition_iosTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -61,7 +59,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5B4542DAB69B061AA3062BF3 /* Pods_pattern_recognition_ios.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -126,7 +123,6 @@
 		856B02BC4DF4B88E85F5F7C0 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				8F8FB44D71BDA1016884221B /* Pods_pattern_recognition_ios.framework */,
 				F648C3281D8812E17DC8CF28 /* Pods_pattern_recognition_iosTests.framework */,
 			);
 			name = Frameworks;
