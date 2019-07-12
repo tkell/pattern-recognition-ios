@@ -218,6 +218,10 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         if self.state != "photoTaken" {
             return
         }
+        // No more than 36 buttons
+        if oscArray.count >= 36 {
+            return
+        }
 
         let touchPoint = tapGestureRecognizer.location(in: self.view)
         let buttonSize = (self.view.frame.size.height + self.view.frame.size.width / 2) / 10
@@ -232,10 +236,10 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         let location = ["location": l] as [String: Any]
         buttonLocList.append(location)
 
-        // If we need to create a new synth, we do it here
+        // If we need to create a new synth, we do it here!
         if buttonLocList.count > oscArray.count {
             oscArray.append(PatternSynth())
-            AudioKit.output = oscArray[oscArray.count - 1].mixer
+            oscArray[oscArray.count - 1].mixer.connect(to: self.mainMixer)
         }
 
         // Store the button by location so we can assign to it later on
