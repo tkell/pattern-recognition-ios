@@ -10,7 +10,7 @@ import UIKit
 import AudioKit
 
 func makeRequest(buttons: Array<[String : Any]>, adventure: Int) -> URLRequest {
-    var request = URLRequest(url: URL(string: "http://pattern-rec.tide-pool.link/pattern-rec/analysis")!)
+    var request = URLRequest(url:URL(string:"https://o3rxp7ycpk.execute-api.us-west-2.amazonaws.com/pattern-rec/analysis")!)
     request.httpMethod = "POST"
     request.addValue("application/json", forHTTPHeaderField: "Content-Type")
     let jsonBody = ["adventure": adventure, "buttonData": buttons] as [String: Any]
